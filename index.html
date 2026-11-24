@@ -404,6 +404,57 @@
     .bleed.txt.red-ink{opacity:.13}
   }
 
+  /* ================= EDIT-ROOM TEXTURES (static, CSS only) ================= */
+  /* rubber stamp with worn ink */
+  .stamp{position:absolute;z-index:3;pointer-events:none;font-family:var(--mono);font-weight:500;font-size:14px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--red);padding:7px 13px;border:2.5px solid currentColor;border-radius:3px;outline:1px solid currentColor;outline-offset:3px;opacity:.8;
+    -webkit-mask:var(--distress) 0 0/200px 200px;mask:var(--distress) 0 0/200px 200px;white-space:nowrap}
+  .stamp.ink{color:var(--ink);opacity:.55}
+  /* label-maker tape */
+  .dymo{position:absolute;z-index:4;pointer-events:none;font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.34em;text-transform:uppercase;color:#fff;
+    padding:6px 12px 6px 14px;background:var(--red) linear-gradient(180deg,rgba(255,255,255,.2),transparent 45%,rgba(0,0,0,.14));
+    text-shadow:0 1px 0 rgba(0,0,0,.28),0 -1px 0 rgba(255,255,255,.3);white-space:nowrap;
+    clip-path:polygon(0 8%,3% 0,97% 0,100% 10%,98% 50%,100% 90%,97% 100%,3% 100%,0 92%,2% 50%);filter:drop-shadow(0 2px 2px rgba(30,20,10,.25))}
+  .dymo.black{background-color:#1a1918}
+  /* torn strip of 35mm film */
+  .filmstrip{position:absolute;z-index:5;pointer-events:none;height:62px;background:
+      repeating-linear-gradient(90deg,transparent 0 8px,var(--paper) 8px 18px,transparent 18px 26px) 0 7px/100% 8px no-repeat,
+      repeating-linear-gradient(90deg,transparent 0 8px,var(--paper) 8px 18px,transparent 18px 26px) 0 calc(100% - 7px)/100% 8px no-repeat,
+      repeating-linear-gradient(90deg,#3b3632 0 84px,#141312 84px 92px) 0 21px/100% 20px no-repeat,#141312;
+    clip-path:polygon(0 6%,2% 0,3.5% 18%,5% 0,100% 0,98.5% 22%,100% 40%,98% 62%,100% 80%,98.6% 100%,3% 100%,1.5% 84%,0 100%,1.8% 60%,0 38%);
+    filter:drop-shadow(0 4px 4px rgba(30,20,10,.3))}
+  .filmstrip::after{content:attr(data-label);position:absolute;left:30px;top:24px;font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:rgba(244,41,2,.85)}
+  /* halftone print patch */
+  .halftone{position:absolute;z-index:0;pointer-events:none;width:340px;height:340px;
+    background:radial-gradient(circle,rgba(22,21,20,.2) 1.25px,transparent 1.7px) 0 0/8px 8px;
+    -webkit-mask:radial-gradient(closest-side,#000 20%,transparent);mask:radial-gradient(closest-side,#000 20%,transparent)}
+  .halftone.red-dots{background-image:radial-gradient(circle,rgba(244,41,2,.28) 1.25px,transparent 1.7px)}
+  .halftone.light{background-image:radial-gradient(circle,rgba(255,244,236,.3) 1.25px,transparent 1.7px)}
+  /* paper fold crease */
+  .crease{position:absolute;left:-5%;right:-5%;height:3px;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(255,255,255,.55) 0 1px,rgba(60,45,25,.08) 1px 3px)}
+  /* timeline ruler ticks on section headers */
+  .sec-top{background:
+    repeating-linear-gradient(90deg,rgba(22,21,20,.28) 0 1px,transparent 1px 10px) 0 2px/100% 4px no-repeat,
+    repeating-linear-gradient(90deg,rgba(22,21,20,.45) 0 1px,transparent 1px 100px) 0 2px/100% 8px no-repeat}
+  .contact .sec-top{background-image:
+    repeating-linear-gradient(90deg,rgba(255,244,236,.35) 0 1px,transparent 1px 10px),
+    repeating-linear-gradient(90deg,rgba(255,244,236,.55) 0 1px,transparent 1px 100px)}
+  .sec-top span{position:relative;top:4px}
+  /* sprocket holes on video frames */
+  .frame::after{content:"";position:absolute;inset:0;pointer-events:none;background:
+    repeating-linear-gradient(90deg,transparent 0 6px,rgba(22,21,20,.32) 6px 14px,transparent 14px 20px) 0 6px/100% 6px no-repeat,
+    repeating-linear-gradient(90deg,transparent 0 6px,rgba(22,21,20,.32) 6px 14px,transparent 14px 20px) 0 calc(100% - 6px)/100% 6px no-repeat}
+  .frame .idx{top:18px}.frame .dur{bottom:18px}
+  .clip{position:absolute;z-index:6;width:26px;height:70px;pointer-events:none}
+  @media (max-width:760px){
+    .filmstrip{height:46px;background-size:100% 6px,100% 6px,100% 14px,auto;background-position:0 5px,0 calc(100% - 5px),0 16px,0 0}
+    .filmstrip::after{top:16px;font-size:9px}
+    .stamp{font-size:11px;padding:5px 9px}
+    .halftone{width:220px;height:220px}
+    .hide-sm{display:none}
+  }
+
   /* ================= MOTION ================= */
   .progress{position:fixed;left:0;top:0;right:0;height:3px;z-index:70;background:var(--red);transform-origin:0 50%;scale:0 1;pointer-events:none}
   /* sticky nav: becomes a frosted vellum strip after the hero */
@@ -626,6 +677,9 @@ little more.</div>
     <span class="crop" style="left:24px;top:84px"><i></i></span>
     <span class="crop" style="right:24px;top:84px"><i></i></span>
     <span class="crop" style="left:24px;bottom:24px"><i></i></span>
+    <div class="halftone red-dots hide-sm" style="left:calc(50% + 160px);top:calc(var(--name-size)*.86 + 30px)"></div>
+    <span class="dymo black hide-sm" style="left:calc(50% + 210px);top:calc(var(--name-size)*.86 + 250px);rotate:-5deg">Editor · 2026</span>
+    <span class="stamp ink hide-sm" style="left:24%;top:calc(var(--name-size)*.86 + 175px);rotate:-8deg">Rough cut</span>
   </div>
 
   <h2 class="bigname ink" aria-label="Sean Aragon"><span>Sean</span> <span class="ar">Aragon</span></h2>
@@ -665,6 +719,8 @@ little more.</div>
 
 <!-- ================= WORK ================= -->
 <section id="work" class="work sheet-bg" style="--bg:#e8e2d6">
+  <span class="stamp" style="right:9%;top:240px;rotate:7deg">Final cut ✓</span>
+  <div class="halftone hide-sm" style="left:-80px;top:38%"></div>
   <div class="bleed big" style="right:-2%;top:120px;font-size:220px">WORK</div>
   <div class="bleed txt red-ink" style="left:3%;top:330px;--br:-3deg">[ IN ]  00:00:04:12
 [ OUT ] 00:00:09:01</div>
@@ -712,6 +768,9 @@ SHUTTER 1/50 · ISO 800</div>
 
 <!-- ================= SERVICES ================= -->
 <section id="services">
+  <div class="filmstrip" data-label="REEL 02 · TAKE 04" style="left:-1%;top:-34px;width:min(560px,70%);rotate:-2.2deg"></div>
+  <div class="crease" style="top:46%;rotate:-3deg"></div>
+  <div class="halftone red-dots hide-sm" style="right:-60px;bottom:6%"></div>
   <div class="bleed big" style="left:-1%;top:90px;font-size:200px">SERVICES</div>
   <div class="bleed txt red-ink" style="right:4%;top:110px;--br:2deg">✂ CUT HERE ─ ─ ─ ─ ─ ─ ─ ─</div>
   <div class="bleed txt" style="left:2%;top:58%;--br:-2deg">01  hook ........ 0–3s
@@ -719,7 +778,7 @@ SHUTTER 1/50 · ISO 800</div>
 03  payoff ...... 45–55s
 04  cta ......... 55–60s</div>
   <div class="bleed tiny red-ink" style="right:6%;bottom:70px;--br:-1deg">● REC  00:12:48:20</div>
-  <svg class="splat" style="right:8%;top:200px;width:110px;height:90px;fill:var(--red);opacity:.85;transform:rotate(-12deg)"><use href="#splatter"/></svg>
+  <svg class="splat hide-sm" style="right:8%;top:200px;width:110px;height:90px;fill:var(--red);opacity:.85;transform:rotate(-12deg)"><use href="#splatter"/></svg>
   <div class="wrap">
     <div class="sec-top mono"><span>(03) Services</span><span>What I do</span></div>
     <h2 class="sec-title ink">Tighter cuts.<br><span class="serif red">More watch time.</span></h2>
@@ -742,6 +801,8 @@ SHUTTER 1/50 · ISO 800</div>
 
 <!-- ================= ABOUT ================= -->
 <section id="about" class="sheet-bg" style="--bg:#e8e2d6">
+  <span class="dymo black" style="right:8%;top:120px;rotate:4deg">B-roll</span>
+  <div class="crease hide-sm" style="top:62%;rotate:2.5deg"></div>
   <div class="bleed big" style="right:-3%;top:60px;font-size:200px;--br:-2deg">ABOUT</div>
   <div class="bleed txt red-ink" style="right:6%;bottom:80px;--br:3deg">note to self:
 less is more.
@@ -773,6 +834,8 @@ then cut a little more.</div>
 
 <!-- ================= RESUME ================= -->
 <section id="resume">
+  <div class="filmstrip" data-label="REEL 03 · SELECTS" style="right:-1%;top:-30px;width:min(520px,66%);rotate:1.8deg"></div>
+  <div class="halftone hide-sm" style="left:-60px;bottom:4%"></div>
   <div class="bleed txt" style="left:3%;bottom:60px;--br:-2deg">REV. 2026 — PAGE 01 OF 01
 PRINTED ON 80GSM PAPER
 DO NOT FOLD</div>
@@ -783,6 +846,8 @@ DO NOT FOLD</div>
     <div class="resume-stage">
       <div class="resume-ghost ink" aria-hidden="true">CV</div>
       <div class="sheet vellum">
+        <svg class="clip" style="left:34px;top:-26px" viewBox="0 0 26 70" aria-hidden="true"><path d="M8 50V12a5 5 0 0 1 10 0v42a8 8 0 0 1-16 0V16" fill="none" stroke="#8d8a84" stroke-width="2.4" stroke-linecap="round"/><path d="M8 50V12a5 5 0 0 1 10 0v42a8 8 0 0 1-16 0V16" fill="none" stroke="#d9d6d0" stroke-width="1" stroke-linecap="round" transform="translate(-.6 -.6)"/></svg>
+        <span class="stamp" style="right:40px;bottom:70px;rotate:-9deg">Approved</span>
         <span class="tape"></span><span class="tape r"></span>
         <svg class="stain" style="right:-50px;bottom:-60px;width:220px;height:220px;transform:rotate(-20deg)"><use href="#ring"/></svg>
         <div class="sheet-head mono"><span>Experience</span><span>Sean Aragon — Video Editor</span></div>
@@ -798,6 +863,9 @@ DO NOT FOLD</div>
 
 <!-- ================= CONTACT ================= -->
 <footer id="contact" class="contact torn">
+  <div class="halftone light" style="left:-80px;bottom:10%"></div>
+  <div class="crease" style="top:38%;rotate:-2deg;opacity:.6"></div>
+  <span class="dymo black hide-sm" style="right:16%;top:330px;rotate:-4deg">Say hi</span>
   <div class="bleed big" style="right:2%;top:110px;font-size:240px">HELLO</div>
   <div class="bleed txt" style="left:3%;bottom:150px;--br:-2deg;color:var(--ink);opacity:.14">SEND RAW FOOTAGE TO:
 drive / dropbox / wetransfer
