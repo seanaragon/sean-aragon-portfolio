@@ -69,8 +69,7 @@
   .vellum{
     position:relative;
     background:var(--vellum) var(--grain);
-    -webkit-backdrop-filter:blur(5px) saturate(.7);
-    backdrop-filter:blur(5px) saturate(.7);
+    background-color:rgba(250,248,243,.72);
     box-shadow:0 1px 1px rgba(0,0,0,.04),0 18px 40px -22px rgba(30,25,15,.28);
   }
   .vellum::after{
@@ -80,7 +79,6 @@
   .tape{
     position:absolute;width:84px;height:24px;z-index:6;
     background:rgba(236,230,214,.72) var(--grain);
-    -webkit-backdrop-filter:blur(1px);backdrop-filter:blur(1px);
     box-shadow:0 1px 2px rgba(0,0,0,.08);
     clip-path:polygon(2% 0,98% 4%,100% 30%,97% 55%,100% 100%,3% 96%,0 70%,3% 40%);
   }
@@ -288,7 +286,7 @@
     position:absolute;left:-2%;top:-30px;z-index:0;
     font-weight:900;font-size:clamp(160px,30vw,440px);letter-spacing:-.08em;line-height:.8;color:var(--red);
   }
-  .sheet{position:relative;z-index:1;margin-left:auto;width:min(860px,100%);padding:52px 56px 40px;transform:rotate(-.6deg)}
+  .sheet{-webkit-backdrop-filter:blur(5px) saturate(.7);backdrop-filter:blur(5px) saturate(.7);background-color:var(--vellum)!important;position:relative;z-index:1;margin-left:auto;width:min(860px,100%);padding:52px 56px 40px;transform:rotate(-.6deg)}
   .sheet .tape{top:-12px;left:60px;transform:rotate(-3deg)}
   .sheet .tape.r{left:auto;right:60px;transform:rotate(4deg)}
   .sheet-head{display:flex;justify-content:space-between;margin-bottom:26px;color:var(--ink-2)}
@@ -409,7 +407,7 @@
   /* ================= MOTION ================= */
   .progress{position:fixed;left:0;top:0;right:0;height:3px;z-index:70;background:var(--red);transform-origin:0 50%;scale:0 1;pointer-events:none}
   /* sticky nav: becomes a frosted vellum strip after the hero */
-  .nav.stuck{position:fixed;padding-top:env(safe-area-inset-top,0px);background:rgba(240,236,227,.82) var(--grain);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  .nav.stuck{position:fixed;padding-top:env(safe-area-inset-top,0px);background:rgba(240,236,227,.97) var(--grain);
     box-shadow:0 1px 0 var(--rule),0 10px 24px -18px rgba(30,25,15,.4);animation:navIn .45s cubic-bezier(.16,1,.3,1)}
   .nav.stuck .wrap{height:58px}
   @keyframes navIn{from{translate:0 -100%}to{translate:0 0}}
@@ -435,7 +433,7 @@
   .js .draw-in{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.1s ease-in-out forwards}
 
   /* scroll reveals — use individual translate/rotate/scale so existing transforms stay intact */
-  .js .reveal{opacity:.12;translate:0 32px;transition:opacity 1s ease-out,translate 1.3s cubic-bezier(.16,1,.3,1),rotate 1.3s cubic-bezier(.16,1,.3,1),scale 1.3s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s);will-change:translate,opacity}
+  .js .reveal{opacity:.12;translate:0 32px;transition:opacity 1s ease-out,translate 1.3s cubic-bezier(.16,1,.3,1),rotate 1.3s cubic-bezier(.16,1,.3,1),scale 1.3s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s)}
   .js .reveal.paper-drop{translate:0 44px;rotate:-1.6deg;scale:.975}
   .js .reveal.in{opacity:1;translate:0 0;rotate:0deg;scale:1}
   .js .sec-top.reveal{opacity:1;translate:0 0;border-top-color:transparent;position:relative}
@@ -444,10 +442,15 @@
   .js .sec-top.reveal>span{opacity:0;transition:opacity .6s ease .4s}
   .js .sec-top.reveal.in::before{scale:1 1}
   .js .sec-top.reveal.in>span{opacity:1}
-  .parallax,.bigname,.hero-photo{will-change:translate}
-  html.lenis,html.lenis body{height:auto}
-  .lenis.lenis-smooth{scroll-behavior:auto!important}
-  .lenis.lenis-stopped{overflow:hidden}
+  .bigname{will-change:transform}
+  @supports (animation-timeline: scroll()){
+    @keyframes nameDrift{to{transform:translateY(-22vh)}}
+    @keyframes grow{to{scale:1 1}}
+    .js .bigname{animation:nameDrift linear both;animation-timeline:scroll(root);animation-range:0 120vh}
+    .js .progress{animation:grow linear both;animation-timeline:scroll(root)}
+  }
+  @media (max-width:760px){ @supports (animation-timeline: scroll()){ .js .bigname{animation:none} } }
+
 
   @media (prefers-reduced-motion:reduce){
     .js *,.js *::before{animation:none!important;transition:none!important}
@@ -466,7 +469,7 @@
   <defs>
     <!-- torn paper: rough edge + white fibre rim + shadow + grain relief -->
     <filter id="paper" x="-6%" y="-8%" width="112%" height="120%" color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="5" seed="7" result="warp"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="7" result="warp"/>
       <feDisplacementMap in="SourceGraphic" in2="warp" scale="14" xChannelSelector="R" yChannelSelector="G" result="torn"/>
       <feMorphology in="torn" operator="dilate" radius="1.6" result="edge"/>
       <feFlood flood-color="#fbf8f0"/>
@@ -475,15 +478,11 @@
       <feOffset in="blur" dx="1" dy="5" result="off"/>
       <feFlood flood-color="#2a1e10" flood-opacity=".24"/>
       <feComposite in2="off" operator="in" result="shadow"/>
-      <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" seed="2" result="grain"/>
-      <feDiffuseLighting in="grain" lighting-color="#fff" surfaceScale="1.1" diffuseConstant="1.12" result="lit"><feDistantLight azimuth="235" elevation="58"/></feDiffuseLighting>
-      <feBlend in="torn" in2="lit" mode="multiply" result="tex"/>
-      <feComposite in="tex" in2="torn" operator="in" result="texTorn"/>
-      <feMerge><feMergeNode in="shadow"/><feMergeNode in="edgeFill"/><feMergeNode in="texTorn"/></feMerge>
+      <feMerge><feMergeNode in="shadow"/><feMergeNode in="edgeFill"/><feMergeNode in="torn"/></feMerge>
     </filter>
     <!-- large section sheets: wider tear, softer shadow -->
     <filter id="paperBig" x="-2%" y="-4%" width="104%" height="108%" color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.045" numOctaves="5" seed="13" result="warp"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.045" numOctaves="3" seed="13" result="warp"/>
       <feDisplacementMap in="SourceGraphic" in2="warp" scale="30" xChannelSelector="R" yChannelSelector="G" result="torn"/>
       <feMorphology in="torn" operator="dilate" radius="2.2" result="edge"/>
       <feFlood flood-color="#fbf8f0"/>
@@ -492,16 +491,12 @@
       <feOffset in="blur" dx="0" dy="-3" result="off"/>
       <feFlood flood-color="#2a1e10" flood-opacity=".2"/>
       <feComposite in2="off" operator="in" result="shadow"/>
-      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="3" seed="6" result="grain"/>
-      <feDiffuseLighting in="grain" lighting-color="#fff" surfaceScale="1" diffuseConstant="1.12" result="lit"><feDistantLight azimuth="235" elevation="58"/></feDiffuseLighting>
-      <feBlend in="torn" in2="lit" mode="multiply" result="tex"/>
-      <feComposite in="tex" in2="torn" operator="in" result="texTorn"/>
-      <feMerge><feMergeNode in="shadow"/><feMergeNode in="edgeFill"/><feMergeNode in="texTorn"/></feMerge>
+      <feMerge><feMergeNode in="shadow"/><feMergeNode in="edgeFill"/><feMergeNode in="torn"/></feMerge>
     </filter>
     <!-- cut-out sticker: thick rough white paper rim with grain + drop shadow -->
     <filter id="sticker" x="-12%" y="-8%" width="124%" height="118%" color-interpolation-filters="sRGB">
       <feMorphology in="SourceAlpha" operator="dilate" radius="11" result="d"/>
-      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="4" seed="21" result="w"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="21" result="w"/>
       <feDisplacementMap in="d" in2="w" scale="12" xChannelSelector="R" yChannelSelector="G" result="rim"/>
       <feFlood flood-color="#fcfaf4"/>
       <feComposite in2="rim" operator="in" result="rimFill"/>
@@ -824,7 +819,6 @@ turnaround 24–72h</div>
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
   /* ---------- scroll experience ---------- */
   (function(){
@@ -860,41 +854,25 @@ turnaround 24–72h</div>
       $(".reveal").forEach(function(el){io.observe(el)});
     }
 
-    /* parallax: bleed-through print and paper scraps drift at different speeds */
-    var px=[];
-    function addPx(q,sp){ $(q).forEach(function(el,i){ px.push({el:el,sp:sp*(i%2?1:.75)}); el.classList.add("parallax"); }); }
-    px.push({el:document.querySelector(".bigname"),sp:-.18,hero:true});
-    px.push({el:document.querySelector(".hero-photo"),sp:.07,hero:true});
-
+    /* parallax + progress: CSS scroll-driven animations do this on the compositor where supported;
+       this light fallback only runs in browsers without them */
+    var native=window.CSS&&CSS.supports&&CSS.supports("animation-timeline: scroll()");
     var bar=document.querySelector(".progress"),nav=document.querySelector(".nav"),hero=document.querySelector(".hero");
-    var ticking=false,lenis=null;
+    var name=document.querySelector(".bigname"),ticking=false,stuck=null;
     function frame(){
       ticking=false;
-      var y=lenis?lenis.scroll:scrollY,vh=innerHeight,doc=document.documentElement.scrollHeight-vh;
-      bar.style.scale=(doc>0?y/doc:0)+" 1";
-      nav.classList.toggle("stuck",y>hero.offsetHeight*.6);
-      if(reduce)return;
-      var k=innerWidth<760?.5:1;
-      px.forEach(function(p){
-        if(!p.el)return;
-        if(p.hero){ if(y<vh*1.2) p.el.style.translate="0 "+(y*p.sp*k).toFixed(1)+"px"; return; }
-        var r=p.el.getBoundingClientRect(); if(r.bottom<-200||r.top>vh+200)return;
-        var c=r.top+r.height/2-vh/2;
-        p.el.style.translate="0 "+(-c*p.sp*k).toFixed(1)+"px";
-      });
+      var y=scrollY,vh=innerHeight;
+      var st=y>hero.offsetHeight*.6; if(st!==stuck){stuck=st;nav.classList.toggle("stuck",st);}
+      if(native||reduce)return;
+      var doc=document.documentElement.scrollHeight-vh;
+      bar.style.transform="scaleX("+(doc>0?y/doc:0)+")";bar.style.scale="1 1";
+      if(innerWidth>760&&y<vh*1.3) name.style.transform="translate3d(0,"+(-y*.18).toFixed(1)+"px,0)";
     }
     function onScroll(){ if(!ticking){ticking=true;requestAnimationFrame(frame);} }
-
-    /* smooth, eased wheel scrolling on desktop; phones keep their native scrolling */
-    if(!reduce && window.Lenis){
-      lenis=new Lenis({lerp:.09,wheelMultiplier:1,smoothWheel:true});
-      window.__lenis=lenis;
-      lenis.on("scroll",frame);
-      (function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(performance.now());
-    } else addEventListener("scroll",onScroll,{passive:true});
+    addEventListener("scroll",onScroll,{passive:true});
     addEventListener("resize",onScroll);
 
-    /* in-page links glide to their section */
+    /* in-page links glide to their section (native smooth scrolling) */
     document.addEventListener("click",function(e){
       var a=e.target.closest('a[href^="#"]'); if(!a||a.closest(".menu"))return;
       var id=a.getAttribute("href"),t=id.length>1&&document.querySelector(id);
@@ -902,8 +880,8 @@ turnaround 24–72h</div>
       window.__goto(t||0,id);
     });
     window.__goto=function(t,id){
-      if(lenis) lenis.scrollTo(t,{duration:1.4,easing:function(x){return 1-Math.pow(1-x,4)}});
-      else if(t) t.scrollIntoView({behavior:"smooth"}); else scrollTo({top:0,behavior:"smooth"});
+      var b=reduce?"auto":"smooth";
+      if(t) t.scrollIntoView({behavior:b}); else scrollTo({top:0,behavior:b});
       if(id&&id!=="#") history.replaceState(null,"",id);
     };
     frame();
@@ -914,7 +892,6 @@ turnaround 24–72h</div>
     function set(open){
       menu.classList.toggle("open",open);document.body.classList.toggle("menu-open",open);
       btn.setAttribute("aria-expanded",open);menu.setAttribute("aria-hidden",!open);
-      if(window.__lenis){ open?window.__lenis.stop():window.__lenis.start(); }
     }
     btn.addEventListener("click",function(){set(true)});
     menu.addEventListener("click",function(e){
