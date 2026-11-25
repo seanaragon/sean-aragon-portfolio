@@ -440,7 +440,6 @@
     .hero-note,.p-news{display:none}
     .short-grid{grid-template-columns:repeat(2,1fr)}
     .svc-list li>a{grid-template-columns:50px 1fr 30px}
-    .svc-list p{grid-column:2/3}
     .svc-list .arr{grid-row:1;grid-column:3}
     .stats{grid-template-columns:repeat(2,1fr);row-gap:40px}
     .stat:nth-child(3){border-left:0;padding-left:0}
@@ -627,6 +626,52 @@
     .brief{width:100%;max-width:330px;rotate:1.5deg}
     .play{width:56px;height:56px}
     .reel-ui .side{gap:9px}.reel-ui .side i{width:16px;height:16px}
+  }
+
+
+  /* ================= ROUND 3 ================= */
+  /* tablet hero: keep the name, photo and note from colliding */
+  @media (max-width:1180px){ .p-news,.hero-note{display:none} }
+  /* showreel feature */
+  .showreel{display:block;position:relative;margin-bottom:84px}
+  .showreel .tape{top:-12px;left:8%;transform:rotate(-4deg)}
+  .showreel .tape.r{left:auto;right:8%;transform:rotate(5deg)}
+  .frame.cine{aspect-ratio:21/9}
+  .frame.cine.torn::before{--bg:var(--piece-dark)}
+  .frame.cine{color:#f3eee4}
+  .frame.cine::after{opacity:.5}
+  .reel-name{position:absolute;left:clamp(20px,4vw,48px);bottom:clamp(28px,4vw,54px);z-index:1;font-weight:800;font-size:clamp(46px,8.4vw,128px);letter-spacing:-.065em;line-height:.82;color:#f3eee4}
+  .reel-name .serif{color:var(--red);font-weight:400;letter-spacing:-.03em}
+  .reel-meta{position:absolute;left:clamp(20px,4vw,48px);top:clamp(22px,3vw,36px);display:flex;gap:18px;color:rgba(243,238,228,.7)}
+  .reel-meta .rec{color:var(--red)}
+  .reel-meta .rec::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);margin-right:8px;vertical-align:0}
+  .frame.cine .play{width:96px;height:96px;background:var(--red);box-shadow:0 16px 40px -12px rgba(244,41,2,.7);justify-self:end;margin-right:clamp(24px,9vw,140px)}
+  .frame.cine .play::after{border-left-color:#fff;border-left-width:22px;border-top-width:13px;border-bottom-width:13px;margin-left:6px}
+  .showreel:hover .play{transform:scale(1.08)}
+  .frame.cine .scrub{left:clamp(20px,4vw,48px);right:clamp(90px,10vw,130px);bottom:20px;background:rgba(243,238,228,.2)}
+  .frame.cine .dur{color:rgba(243,238,228,.75);bottom:12px;right:clamp(20px,4vw,48px)}
+  .frame.cine .tag{color:rgba(243,238,228,.8);box-shadow:inset 0 0 0 1px rgba(243,238,228,.35);right:clamp(20px,4vw,48px);top:clamp(22px,3vw,36px)}
+  .frame.cine .ghost{color:rgba(243,238,228,.05);bottom:auto;top:-.1em}
+  .showreel .caption h3{font-size:22px}
+  /* services: numbers in red, deliverables as chips, a soft hover band */
+  .svc-list .mono{color:var(--red)}
+  .svc-list li>a{position:relative}
+  .svc-list li>a::before{content:"";position:absolute;inset:0 -16px;background:rgba(var(--ink-rgb),.04);opacity:0;transition:opacity .3s;pointer-events:none}
+  .svc-list li:hover>a::before{opacity:1}
+  .svc-d p{margin-bottom:12px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chips i{font-style:normal;font-size:10.5px;padding:3px 9px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--rule);color:var(--ink-2)}
+  .svc-list li:hover .chips i{box-shadow:inset 0 0 0 1px rgba(244,41,2,.45)}
+  /* nav: current section stays underlined */
+  .nav ul a.on{color:var(--ink)}
+  .nav ul a.on::after{right:0}
+  @media (max-width:1000px){ .svc-d{grid-column:2/3} }
+  @media (max-width:760px){
+    .showreel{margin-bottom:56px}
+    .frame.cine{aspect-ratio:4/3}
+    .frame.cine .play{width:64px;height:64px;justify-self:center;margin:0}
+    .frame.cine .play::after{border-left-width:16px;border-top-width:10px;border-bottom-width:10px}
+    .reel-name{font-size:15vw;bottom:44px}
   }
 
   /* ================= MOTION ================= */
@@ -921,6 +966,21 @@ SHUTTER 1/50 · ISO 800</div>
     <div class="sec-top mono"><span>(02) Selected work</span><span>2024 — 2026</span></div>
     <h2 class="sec-title ink">Selected <span class="serif">work</span></h2>
 
+    <div class="work-sub mono"><span>Showreel</span><span>The best cuts in 2 minutes</span></div>
+    <a href="#" class="showreel">
+      <span class="tape" aria-hidden="true"></span><span class="tape r" aria-hidden="true"></span>
+      <div class="frame cine torn">
+        <span class="ghost" aria-hidden="true">REEL</span>
+        <span class="reel-meta mono" aria-hidden="true"><span class="rec">Rec</span><span>Reel 2026</span><span>16:9 · 4K</span></span>
+        <span class="tag mono">Showreel</span>
+        <span class="reel-name">Showreel <span class="serif">’26</span></span>
+        <span class="play"></span>
+        <span class="scrub" aria-hidden="true"><i style="--p:22%"></i></span>
+        <span class="dur mono">02:00</span>
+      </div>
+      <div class="caption"><h3>Watch the 2026 showreel</h3><span class="mono">Reels · YouTube · Brand</span></div>
+    </a>
+
     <div class="work-sub mono"><span>Long‑form</span><span>YouTube / Documentary</span></div>
     <div class="long-grid">
       <a href="#" style="transform:rotate(-.6deg)">
@@ -971,10 +1031,10 @@ SHUTTER 1/50 · ISO 800</div>
     <h2 class="sec-title ink">Tighter cuts.<br><span class="serif red">More watch time.</span></h2>
 
     <ul class="svc-list">
-      <li><a href="#contact"><span class="mono">01</span><h3>Short‑form reels</h3><p>Hooks in the first second, captions, sound and pacing built for Reels, TikTok and Shorts.</p><span class="arr" aria-hidden="true">→</span></a></li>
-      <li><a href="#contact"><span class="mono">02</span><h3>YouTube long‑form</h3><p>Story structure, b‑roll, sound design and retention‑focused cuts.</p><span class="arr" aria-hidden="true">→</span></a></li>
-      <li><a href="#contact"><span class="mono">03</span><h3>Thumbnails</h3><p>Clean, readable designs made to match every video I edit.</p><span class="arr" aria-hidden="true">→</span></a></li>
-      <li><a href="#contact"><span class="mono">04</span><h3>Motion graphics</h3><p>Titles, callouts and lower thirds that keep eyes on screen.</p><span class="arr" aria-hidden="true">→</span></a></li>
+      <li><a href="#contact"><span class="mono">01</span><h3>Short‑form reels</h3><div class="svc-d"><p>Hooks in the first second, captions, sound and pacing built for Reels, TikTok and Shorts.</p><span class="chips mono" aria-hidden="true"><i>9:16</i><i>Hooks</i><i>Captions</i><i>SFX</i></span></div><span class="arr" aria-hidden="true">→</span></a></li>
+      <li><a href="#contact"><span class="mono">02</span><h3>YouTube long‑form</h3><div class="svc-d"><p>Story structure, b‑roll, sound design and retention‑focused cuts.</p><span class="chips mono" aria-hidden="true"><i>16:9</i><i>Story</i><i>B‑roll</i><i>Sound design</i></span></div><span class="arr" aria-hidden="true">→</span></a></li>
+      <li><a href="#contact"><span class="mono">03</span><h3>Thumbnails</h3><div class="svc-d"><p>Clean, readable designs made to match every video I edit.</p><span class="chips mono" aria-hidden="true"><i>1280×720</i><i>A/B variants</i><i>Brand match</i></span></div><span class="arr" aria-hidden="true">→</span></a></li>
+      <li><a href="#contact"><span class="mono">04</span><h3>Motion graphics</h3><div class="svc-d"><p>Titles, callouts and lower thirds that keep eyes on screen.</p><span class="chips mono" aria-hidden="true"><i>Titles</i><i>Lower thirds</i><i>Callouts</i></span></div><span class="arr" aria-hidden="true">→</span></a></li>
     </ul>
 
     <div class="stats">
@@ -1125,7 +1185,7 @@ turnaround 24–72h</div>
     /* reveal targets, staggered within each group */
     var groups=[
       [".sec-top"],[".sec-title"],[".work-sub"],
-      [".long-grid>a","paper-drop"],[".short-grid>a","paper-drop"],
+      [".showreel","paper-drop"],[".long-grid>a","paper-drop"],[".short-grid>a","paper-drop"],
       [".svc-list li"],[".stat"],
       [".print","paper-drop"],[".about-copy>*"],
       [".track li","paper-drop"],[".process-lede"],[".brief","paper-drop"],
@@ -1177,6 +1237,16 @@ turnaround 24–72h</div>
       if(id&&id!=="#") history.replaceState(null,"",id);
     };
     frame();
+  })();
+
+  /* ---------- nav: underline the section in view ---------- */
+  (function(){
+    if(!("IntersectionObserver" in window))return;
+    var links={};Array.prototype.forEach.call(document.querySelectorAll('.nav ul a[href^="#"]'),function(a){links[a.getAttribute("href").slice(1)]=a});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){var a=links[e.target.id];if(!a)return;
+      if(e.isIntersecting){for(var k in links){links[k].classList.remove("on");links[k].removeAttribute("aria-current")}a.classList.add("on");a.setAttribute("aria-current","true");}
+      else a.removeAttribute("aria-current");});},{rootMargin:"-45% 0px -50% 0px"});
+    Object.keys(links).forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el)});
   })();
 
   /* ---------- light / dark switch ---------- */
