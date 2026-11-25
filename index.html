@@ -630,6 +630,27 @@
     .reel-name{font-size:15vw;bottom:44px}
   }
 
+  /* ---------- section wipe: a torn red sheet crosses the screen when a menu tab is clicked ---------- */
+  .wipe{position:fixed;inset:0;z-index:90;pointer-events:none;visibility:hidden}
+  .wipe.run{visibility:visible;pointer-events:auto}
+  .wipe-sheet{position:absolute;top:-4%;bottom:-4%;left:-12%;width:124%;background:var(--red) var(--grain);
+    translate:-105% 0;rotate:-2deg;will-change:translate;
+    clip-path:polygon(3% 0,100% 0,97% 6%,99% 14%,96% 22%,98.5% 31%,96.5% 40%,99% 49%,96% 58%,98% 67%,95.5% 76%,98.5% 85%,96% 93%,98% 100%,0 100%,2% 93%,0 85%,2.5% 76%,.5% 67%,3% 58%,1% 49%,3.5% 40%,1% 31%,3% 22%,.5% 14%,2.5% 6%)}
+  .wipe-sheet::after{content:"";position:absolute;inset:0;background:radial-gradient(circle,rgba(110,14,0,.35) 1.3px,transparent 1.7px) 0 0/8px 8px;
+    -webkit-mask:linear-gradient(100deg,transparent 40%,#000);mask:linear-gradient(100deg,transparent 40%,#000);opacity:.6}
+  .wipe-label{position:absolute;left:14%;right:14%;top:50%;translate:0 -50%;color:#fff4ec;display:flex;flex-direction:column;gap:14px}
+  .wipe-label .mono{opacity:.85;font-size:13px;letter-spacing:.3em}
+  .wipe-label b{font-weight:800;font-size:clamp(56px,11vw,170px);letter-spacing:-.065em;line-height:.85}
+  .wipe-label b .serif{font-weight:400;color:#161514;letter-spacing:-.03em}
+  .wipe.in .wipe-sheet{translate:0 0;rotate:0deg;transition:translate .5s cubic-bezier(.7,0,.2,1),rotate .5s cubic-bezier(.7,0,.2,1)}
+  .wipe.out .wipe-sheet{translate:105% 0;rotate:2deg;transition:translate .6s cubic-bezier(.7,0,.2,1),rotate .6s cubic-bezier(.7,0,.2,1)}
+  .wipe-label>*{opacity:0;translate:0 24px;transition:opacity .3s,translate .45s cubic-bezier(.16,1,.3,1)}
+  .wipe.in .wipe-label>*{opacity:1;translate:0 0;transition-delay:.22s}
+  .wipe.in .wipe-label>b{transition-delay:.28s}
+  .wipe.out .wipe-label>*{opacity:0;translate:0 -18px;transition-delay:0s}
+  @media (prefers-reduced-motion:reduce){ .wipe{display:none} }
+  h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
+
   /* ================= MOTION ================= */
   .progress{position:fixed;left:0;top:0;right:0;height:3px;z-index:70;background:var(--red);transform-origin:0 50%;scale:0 1;pointer-events:none}
   /* sticky nav: becomes a frosted vellum strip after the hero */
@@ -661,6 +682,9 @@
   /* scroll reveals — use individual translate/rotate/scale so existing transforms stay intact */
   .js .reveal{opacity:.12;translate:0 32px;transition:opacity 1s ease-out,translate 1.3s cubic-bezier(.16,1,.3,1),rotate 1.3s cubic-bezier(.16,1,.3,1),scale 1.3s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s)}
   .js .reveal.paper-drop{translate:0 44px;rotate:-1.6deg;scale:.975}
+  /* leaving through the top: drift up and fade, so scrolling back down plays it again */
+  .js .reveal.above{translate:0 -36px}
+  .js .reveal.paper-drop.above{translate:0 -44px;rotate:1.4deg;scale:.975}
   .js .reveal.in,.js .reveal:focus-within,.js a.reveal:focus-visible{opacity:1;translate:0 0;rotate:0deg;scale:1}
   .js .sec-top.reveal{opacity:1;translate:0 0;border-top-color:transparent;position:relative}
   .js .sec-top.reveal::before{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;background:currentColor;color:var(--ink);transform-origin:0 50%;scale:0 1;transition:scale 1.2s cubic-bezier(.7,0,.2,1)}
@@ -774,6 +798,7 @@
 
 <!-- ================= NAV ================= -->
 <div class="progress" aria-hidden="true"></div>
+<div class="wipe" aria-hidden="true"><div class="wipe-sheet"><div class="wipe-label"><span class="mono"></span><b></b></div></div></div>
 <header class="nav">
   <div class="wrap">
     <a href="#" class="brand" translate="no"><i></i>Sean Aragon</a>
@@ -1084,7 +1109,11 @@ little more.</div>
     if(reduce||!("IntersectionObserver" in window)){ $(".reveal").forEach(function(el){el.classList.add("in")}); }
     else{
       var io=new IntersectionObserver(function(es){
-        es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+        es.forEach(function(e){
+          var el=e.target;
+          if(e.isIntersecting){ el.classList.add("in"); el.classList.remove("above"); }
+          else if(el.classList.contains("in")){ el.classList.remove("in"); el.classList.toggle("above", e.boundingClientRect.top<0); }
+        });
       },{rootMargin:"0px 0px -12% 0px",threshold:.08});
       $(".reveal").forEach(function(el){io.observe(el)});
     }
@@ -1114,10 +1143,31 @@ little more.</div>
       if(!t&&id!=="#")return; e.preventDefault();
       window.__goto(t||0,id);
     });
+    var wipe=document.querySelector(".wipe"),busy=false;
+    function labelFor(t){
+      var top=t&&t.querySelector(".sec-top span");
+      var txt=top?top.textContent.trim():"(01) Home";
+      var m=txt.match(/^\((\d+)\)\s*(.+)$/)||[null,"01",txt];
+      return {n:m[1],name:m[2]};
+    }
+    function jump(t){ var h=document.documentElement,prev=h.style.scrollBehavior;h.style.scrollBehavior="auto";
+      if(t) t.scrollIntoView({behavior:"auto"}); else scrollTo(0,0); h.style.scrollBehavior=prev; }
     window.__goto=function(t,id){
-      var b=reduce?"auto":"smooth";
-      if(t) t.scrollIntoView({behavior:b}); else scrollTo({top:0,behavior:b});
       if(id&&id!=="#") history.replaceState(null,"",id);
+      if(reduce||!wipe){ if(t) t.scrollIntoView({behavior:reduce?"auto":"smooth"}); else scrollTo({top:0,behavior:reduce?"auto":"smooth"}); return; }
+      if(busy) return; busy=true;
+      var l=labelFor(t),words=l.name.split(" "),last=words.pop();
+      wipe.querySelector(".mono").textContent=l.n+" / Cut to";
+      wipe.querySelector("b").innerHTML=(words.length?words.join(" ")+" ":"")+'<span class="serif">'+last.replace(/[<&]/g,"")+"</span>";
+      wipe.className="wipe run";
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ wipe.classList.add("in"); }); });
+      setTimeout(function(){
+        jump(t);
+        setTimeout(function(){ wipe.classList.remove("in"); wipe.classList.add("out");
+          setTimeout(function(){ wipe.className="wipe"; busy=false; var f=t&&t.querySelector("h1,h2");
+            if(f){ f.setAttribute("tabindex","-1"); f.focus({preventScroll:true}); } },620);
+        },240);
+      },560);
     };
     frame();
   })();
