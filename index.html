@@ -362,7 +362,7 @@
   .contact{--bg:var(--red);color:#fff4ec;padding:150px 0 40px;margin-top:40px}
   .contact .sec-top{border-color:#fff4ec;color:rgba(255,244,236,.8)}
   .contact .sec-top span:first-child::first-letter{color:inherit}
-  .contact .big{font-size:clamp(56px,10.5vw,160px);line-height:.86;letter-spacing:-.065em;font-weight:900;margin-bottom:56px;color:#fff4ec}
+  .contact .big{font-size:clamp(56px,13vw,210px);line-height:.86;letter-spacing:-.065em;font-weight:900;margin-bottom:56px;color:#fff4ec}
   .contact .big .serif{font-weight:400;letter-spacing:-.04em;color:var(--ink)}
   .contact .bleed{color:#fff;opacity:.14}
   .contact .bleed.big{opacity:.05;filter:blur(1.6px)}
@@ -571,59 +571,11 @@
   .short-grid .frame .dur{bottom:auto;top:18px;right:12px}
   .short-grid .frame .ghost{bottom:auto;top:26%}
 
-  /* process: an edit timeline */
-  .process .sec-title{margin-bottom:40px}
-  .process-lede{max-width:46ch;color:var(--ink-2);font-size:18px;margin:-16px 0 56px}
-  .track{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative;padding-top:54px;counter-reset:step}
-  .track::before{content:"";position:absolute;left:0;right:0;top:12px;height:14px;border-bottom:1px solid var(--ink);
-    background:repeating-linear-gradient(90deg,rgba(var(--ink-rgb),.35) 0 1px,transparent 1px 12px) 0 100%/100% 6px no-repeat,
-      repeating-linear-gradient(90deg,rgba(var(--ink-rgb),.6) 0 1px,transparent 1px 120px) 0 100%/100% 14px no-repeat}
-  .track-wrap{position:relative}
-  .playhead{position:absolute;top:0;bottom:-18px;left:var(--ph,36%);width:2px;background:var(--red);z-index:2;pointer-events:none}
-  .playhead::before{content:"";position:absolute;left:-7px;top:0;border:8px solid transparent;border-top:11px solid var(--red);border-bottom:0}
-  .playhead span{position:absolute;left:12px;top:-2px;color:var(--red);white-space:nowrap}
-  .track li{position:relative;background:var(--card) var(--grain);padding:22px 22px 26px;border-top:6px solid var(--c,var(--ink));
-    box-shadow:0 1px 1px rgba(0,0,0,.05),0 18px 34px -24px rgba(30,25,15,.45);transition:translate .5s cubic-bezier(.16,1,.3,1)}
-  .track li:hover{translate:0 -4px}
-  .track li:nth-child(2){--c:var(--red)} .track li:nth-child(3){--c:var(--kraft)} .track li:nth-child(4){--c:var(--red-deep)}
-  .track .file{display:flex;justify-content:space-between;gap:8px;color:var(--ink-3);margin-bottom:34px}
-  .track h3{font-size:clamp(24px,2.2vw,30px);font-weight:700;letter-spacing:-.04em;line-height:1;margin-bottom:12px}
-  .track h3 .serif{font-weight:400}
-  .track p{color:var(--ink-2);font-size:15px}
-  .track .wave{display:block;height:22px;margin-top:22px;opacity:.5;
-    background:linear-gradient(90deg,var(--c,var(--ink)) 0 0) 0 50%/100% 1px no-repeat,
-      repeating-linear-gradient(90deg,var(--c,var(--ink)) 0 2px,transparent 2px 5px);
-    -webkit-mask:radial-gradient(60% 50% at 30% 50%,#000,transparent),radial-gradient(40% 40% at 75% 50%,#000 30%,transparent);
-            mask:radial-gradient(60% 50% at 30% 50%,#000,transparent),radial-gradient(40% 40% at 75% 50%,#000 30%,transparent)}
-
-  /* contact: headline + project brief side by side */
-  .contact-head{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end;margin-bottom:56px}
-  .contact-head .big{margin-bottom:0}
-  .brief{position:relative;z-index:2;width:290px;padding:22px 22px 26px;background:var(--card) var(--grain);color:var(--ink);rotate:2.5deg;margin-bottom:8px;
-    font-family:var(--mono);font-size:12px;line-height:1.6;filter:drop-shadow(0 14px 16px rgba(60,10,0,.35));
-    clip-path:polygon(0 2%,5% 0,10% 2%,15% 0,20% 2%,25% 0,30% 2%,35% 0,40% 2%,45% 0,50% 2%,55% 0,60% 2%,65% 0,70% 2%,75% 0,80% 2%,85% 0,90% 2%,95% 0,100% 2%,100% 98%,95% 100%,90% 98%,85% 100%,80% 98%,75% 100%,70% 98%,65% 100%,60% 98%,55% 100%,50% 98%,45% 100%,40% 98%,35% 100%,30% 98%,25% 100%,20% 98%,15% 100%,10% 98%,5% 100%,0 98%)}
-  .brief h3{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;display:flex;justify-content:space-between;
-    padding-bottom:10px;margin-bottom:12px;border-bottom:1px dashed rgba(var(--ink-rgb),.4)}
-  .brief ul{list-style:none;display:grid;gap:8px}
-  .brief li{display:grid;grid-template-columns:16px 1fr;gap:8px;color:var(--ink-2)}
-  .brief li::before{content:"";width:11px;height:11px;margin-top:4px;box-shadow:inset 0 0 0 1.5px var(--ink-2)}
-  .brief li.done::before{background:var(--red);box-shadow:none}
-  .brief .tot{display:flex;justify-content:space-between;margin-top:14px;padding-top:10px;border-top:1px dashed rgba(var(--ink-rgb),.4);color:var(--ink)}
-
   @media (max-width:1000px){
-    .track{grid-template-columns:repeat(2,1fr);row-gap:22px}
-    .contact-head{grid-template-columns:1fr}
-    .brief{justify-self:start}
   }
   @media (max-width:760px){
     .tapeband{margin:-10px -4% 0}
     .tapeband div{font-size:12px;padding:12px 0}
-    .track{grid-template-columns:1fr;padding:0 0 0 30px}
-    .track::before{left:8px;right:auto;top:0;bottom:0;width:1px;height:auto;border:0;background:var(--ink)}
-    .playhead{display:none}
-    .track .file{margin-bottom:18px}
-    .process-lede{font-size:16px;margin-bottom:40px}
-    .brief{width:100%;max-width:330px;rotate:1.5deg}
     .play{width:56px;height:56px}
     .reel-ui .side{gap:9px}.reel-ui .side i{width:16px;height:16px}
   }
@@ -826,7 +778,6 @@
       <li><a href="#work">Work</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="#process">Process</a></li>
       <li><a href="#resume">Resume</a></li>
     </ul>
     <div class="nav-right">
@@ -849,10 +800,9 @@
       <li><a href="#top"><span class="mono">01</span>Home</a></li>
       <li><a href="#work"><span class="mono">02</span>Work</a></li>
       <li><a href="#services"><span class="mono">03</span>Services</a></li>
-      <li><a href="#process"><span class="mono">04</span>Process</a></li>
-      <li><a href="#about"><span class="mono">05</span>About</a></li>
-      <li><a href="#resume"><span class="mono">06</span>Resume</a></li>
-      <li><a href="#contact"><span class="mono">07</span>Contact</a></li>
+      <li><a href="#about"><span class="mono">04</span>About</a></li>
+      <li><a href="#resume"><span class="mono">05</span>Resume</a></li>
+      <li><a href="#contact"><span class="mono">06</span>Contact</a></li>
     </ol>
     <a href="#contact" class="btn menu-cta">Hire me ↗</a>
   </div>
@@ -952,16 +902,7 @@ little more.</div>
 <!-- ================= WORK ================= -->
 <section id="work" class="work sheet-bg" style="--bg:var(--sheet)">
   <span aria-hidden="true" class="stamp" style="right:9%;top:240px;rotate:7deg">Final cut ✓</span>
-  <div aria-hidden="true" class="halftone hide-sm" style="left:-80px;top:38%"></div>
   <div aria-hidden="true" class="bleed big" style="right:-2%;top:120px;font-size:220px">WORK</div>
-  <div aria-hidden="true" class="bleed txt red-ink" style="left:3%;top:330px;--br:-3deg">[ IN ]  00:00:04:12
-[ OUT ] 00:00:09:01</div>
-  <div aria-hidden="true" class="bleed txt" style="right:5%;top:46%;--br:2deg">SCENE 04 / TAKE 02
-CAM A — 35MM — F2.8
-SHUTTER 1/50 · ISO 800</div>
-  <div aria-hidden="true" class="bleed tiny" style="left:4%;bottom:90px;--br:-1deg">▁▂▃▅▇▅▃▂▁▂▃▅▃▂▁ ▁▂▅▇▇▅▂▁ ▁▂▃▂▁</div>
-  <div aria-hidden="true" class="bleed big red-ink" style="left:-2%;bottom:40px;font-size:180px;--br:2deg">9:16</div>
-  <svg aria-hidden="true" class="stain" style="left:38%;top:70px;width:200px;height:200px;transform:rotate(40deg)"><use href="#ring"/></svg>
   <div class="wrap">
     <div class="sec-top mono"><span>(02) Selected work</span><span>2024 — 2026</span></div>
     <h2 class="sec-title ink">Selected <span class="serif">work</span></h2>
@@ -1016,16 +957,7 @@ SHUTTER 1/50 · ISO 800</div>
 <!-- ================= SERVICES ================= -->
 <section id="services">
   <div aria-hidden="true" class="proofstrip torn" style="left:-1%;top:-34px;width:min(560px,70%);rotate:-2.2deg"><span class="tape" aria-hidden="true"></span><div class="frames"></div><div class="nums"><span>▸14</span><span>▸14A</span><span>▸15</span><span>▸15A</span><span>▸16</span><span>▸16A</span><span>▸17</span></div><span class="label">REEL 02 · TAKE 04</span></div>
-  <div aria-hidden="true" class="crease" style="top:46%;rotate:-3deg"></div>
-  <div aria-hidden="true" class="halftone red-dots hide-sm" style="right:-60px;bottom:6%"></div>
   <div aria-hidden="true" class="bleed big" style="left:-1%;top:90px;font-size:200px">SERVICES</div>
-  <div aria-hidden="true" class="bleed txt red-ink" style="right:4%;top:110px;--br:2deg">✂ CUT HERE ─ ─ ─ ─ ─ ─ ─ ─</div>
-  <div aria-hidden="true" class="bleed txt" style="left:2%;top:58%;--br:-2deg">01  hook ........ 0–3s
-02  story ....... 3–45s
-03  payoff ...... 45–55s
-04  cta ......... 55–60s</div>
-  <div aria-hidden="true" class="bleed tiny red-ink" style="right:6%;bottom:70px;--br:-1deg">● REC  00:12:48:20</div>
-  <svg aria-hidden="true" class="splat hide-sm" style="right:8%;top:200px;width:110px;height:90px;fill:var(--red);opacity:.85;transform:rotate(-12deg)"><use href="#splatter"/></svg>
   <div class="wrap">
     <div class="sec-top mono"><span>(03) Services</span><span>What I do</span></div>
     <h2 class="sec-title ink">Tighter cuts.<br><span class="serif red">More watch time.</span></h2>
@@ -1046,39 +978,12 @@ SHUTTER 1/50 · ISO 800</div>
   </div>
 </section>
 
-<!-- ================= PROCESS ================= -->
-<section id="process" class="process sheet-bg" style="--bg:var(--sheet)">
-  <span aria-hidden="true" class="dymo" style="left:6%;top:150px;rotate:-4deg">No surprises</span>
-  <div aria-hidden="true" class="bleed big" style="right:-2%;top:90px;font-size:200px">PROCESS</div>
-  <div aria-hidden="true" class="bleed txt red-ink" style="left:4%;bottom:70px;--br:-2deg">V1 → V2 → FINAL
-notes in, cuts out.</div>
-  <div class="wrap">
-    <div class="sec-top mono"><span>(04) Process</span><span>From footage to final</span></div>
-    <h2 class="sec-title ink">How a project <span class="serif">runs.</span></h2>
-    <p class="process-lede">Four steps, one timeline. You always know which cut you're looking at and what happens next.</p>
-    <div class="track-wrap">
-    <span class="playhead" aria-hidden="true"><span class="mono">You are here</span></span>
-    <ol class="track">
-      <li><div class="file mono"><span>01</span><span>footage_raw.mov</span></div><h3>Send the <span class="serif">footage</span></h3><p>One link with your clips, the platform, a deadline and a video whose style you love.</p><span class="wave" aria-hidden="true"></span></li>
-      <li><div class="file mono"><span>02</span><span>cut_v1.mp4</span></div><h3>First <span class="serif">cut</span></h3><p>I build the story: hook, pacing, music and captions, then send a full draft to review.</p><span class="wave" aria-hidden="true"></span></li>
-      <li><div class="file mono"><span>03</span><span>notes.txt</span></div><h3>Your <span class="serif">notes</span></h3><p>Leave timestamped notes. I tighten, swap and polish until it feels right.</p><span class="wave" aria-hidden="true"></span></li>
-      <li><div class="file mono"><span>04</span><span>final_v7.mp4</span></div><h3>Final <span class="serif">export</span></h3><p>Delivered in every size you need: 9:16, 16:9 and 1:1, ready to post.</p><span class="wave" aria-hidden="true"></span></li>
-    </ol>
-    </div>
-  </div>
-</section>
-
 <!-- ================= ABOUT ================= -->
 <section id="about" class="sheet-bg" style="--bg:var(--sheet)">
   <span aria-hidden="true" class="dymo black" style="right:8%;top:120px;rotate:4deg">B-roll</span>
-  <div aria-hidden="true" class="crease hide-sm" style="top:62%;rotate:2.5deg"></div>
   <div aria-hidden="true" class="bleed big" style="right:-3%;top:60px;font-size:200px;--br:-2deg">ABOUT</div>
-  <div aria-hidden="true" class="bleed txt red-ink" style="right:6%;bottom:80px;--br:3deg">note to self:
-less is more.
-then cut a little more.</div>
-  <div aria-hidden="true" class="bleed tiny" style="left:3%;bottom:40px">FIG. 01 · FIG. 02 · FIG. 03 · CONTACT SHEET</div>
   <div class="wrap">
-    <div class="sec-top mono"><span>(05) About</span><span>The person behind the timeline</span></div>
+    <div class="sec-top mono"><span>(04) About</span><span>The person behind the timeline</span></div>
     <div class="about-grid">
       <div class="print">
         <div class="red-scrap torn"></div>
@@ -1104,21 +1009,14 @@ then cut a little more.</div>
 <!-- ================= RESUME ================= -->
 <section id="resume">
   <div aria-hidden="true" class="proofstrip torn" style="right:-1%;top:-30px;width:min(520px,66%);rotate:1.8deg"><span class="tape" aria-hidden="true"></span><div class="frames"></div><div class="nums"><span>▸21</span><span>▸21A</span><span>▸22</span><span>▸22A</span><span>▸23</span><span>▸23A</span><span>▸24</span></div><span class="label">REEL 03 · SELECTS</span></div>
-  <div aria-hidden="true" class="halftone hide-sm" style="left:-60px;bottom:4%"></div>
-  <div aria-hidden="true" class="bleed txt" style="left:3%;bottom:60px;--br:-2deg">REV. 2026 — PAGE 01 OF 01
-PRINTED ON 80GSM PAPER
-DO NOT FOLD</div>
-  <div aria-hidden="true" class="bleed big red-ink" style="right:-2%;bottom:20px;font-size:170px;--br:3deg">RÉSUMÉ</div>
-  <div aria-hidden="true" class="bleed tiny red-ink" style="right:6%;top:100px">✂ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─</div>
   <div class="wrap">
-    <div class="sec-top mono"><span>(06) Resume</span><span>The short version</span></div>
+    <div class="sec-top mono"><span>(05) Resume</span><span>The short version</span></div>
     <div class="resume-stage">
       <div class="resume-ghost ink" aria-hidden="true">CV</div>
       <div class="sheet vellum">
         <svg class="clip" style="left:34px;top:-26px" viewBox="0 0 26 70" aria-hidden="true"><path d="M8 50V12a5 5 0 0 1 10 0v42a8 8 0 0 1-16 0V16" fill="none" stroke="#8d8a84" stroke-width="2.4" stroke-linecap="round"/><path d="M8 50V12a5 5 0 0 1 10 0v42a8 8 0 0 1-16 0V16" fill="none" stroke="#d9d6d0" stroke-width="1" stroke-linecap="round" transform="translate(-.6 -.6)"/></svg>
         <span aria-hidden="true" class="stamp" style="right:40px;bottom:70px;rotate:-9deg">Approved</span>
         <span class="tape" aria-hidden="true"></span><span class="tape r" aria-hidden="true"></span>
-        <svg aria-hidden="true" class="stain" style="right:-50px;bottom:-60px;width:220px;height:220px;transform:rotate(-20deg)"><use href="#ring"/></svg>
         <div class="sheet-head mono"><span>Experience</span><span>Sean Aragon — Video Editor</span></div>
         <div class="job"><span class="mono">2025 — Now</span><div><h3>Job title</h3><p>One or two lines on what you did and the results.</p></div><span class="co">Company</span></div>
         <div class="job"><span class="mono">2023 — 2025</span><div><h3>Job title</h3><p>One or two lines on what you did and the results.</p></div><span class="co">Company</span></div>
@@ -1134,30 +1032,12 @@ DO NOT FOLD</div>
 
 <!-- ================= CONTACT ================= -->
 <footer id="contact" class="contact torn">
-  <div aria-hidden="true" class="halftone light" style="left:-80px;bottom:10%"></div>
-  <div aria-hidden="true" class="crease" style="top:38%;rotate:-2deg;opacity:.6"></div>
   
   <div aria-hidden="true" class="bleed big" style="right:2%;top:110px;font-size:240px">HELLO</div>
-  <div aria-hidden="true" class="bleed txt" style="left:3%;bottom:150px;--br:-2deg;color:var(--ink);opacity:.14">SEND RAW FOOTAGE TO:
-drive / dropbox / wetransfer
-turnaround 24–72h</div>
-  <div aria-hidden="true" class="bleed tiny" style="right:4%;bottom:120px;color:var(--ink);opacity:.16">EXPORT ▸ H.264 ▸ 1080P ▸ −14 LUFS</div>
-  <svg aria-hidden="true" class="splat hide-sm" style="right:5%;bottom:22%;width:120px;height:100px;fill:var(--ink);opacity:.85;transform:rotate(160deg)"><use href="#splatter"/></svg>
+  <svg aria-hidden="true" class="splat hide-sm" style="right:4%;top:16%;width:120px;height:100px;fill:var(--ink);opacity:.85;transform:rotate(160deg)"><use href="#splatter"/></svg>
   <div class="wrap">
-    <div class="sec-top mono"><span>(07) Contact</span><span>Usually replies within a day</span></div>
-    <div class="contact-head">
-      <h2 class="big ink">Got footage?<br><span class="serif">Let’s talk.</span></h2>
-      <div class="brief">
-        <h3><span>Project brief</span><span>№ 001</span></h3>
-        <ul>
-          <li class="done">Footage link (Drive, Dropbox, WeTransfer)</li>
-          <li>Where it’s posted: Reels, TikTok, YouTube</li>
-          <li>Deadline</li>
-          <li>A video whose style you love</li>
-        </ul>
-        <div class="tot"><span>Reply</span><span>within a day</span></div>
-      </div>
-    </div>
+    <div class="sec-top mono"><span>(06) Contact</span><span>Usually replies within a day</span></div>
+    <h2 class="big ink">Got footage?<br><span class="serif">Let’s talk.</span></h2>
     <div class="contact-row">
       <a href="mailto:hello@yourname.com" class="mail">hello@yourname.com</a>
       <ul class="socials mono">
@@ -1188,7 +1068,6 @@ turnaround 24–72h</div>
       [".showreel","paper-drop"],[".long-grid>a","paper-drop"],[".short-grid>a","paper-drop"],
       [".svc-list li"],[".stat"],
       [".print","paper-drop"],[".about-copy>*"],
-      [".track li","paper-drop"],[".process-lede"],[".brief","paper-drop"],
       [".resume-ghost"],[".sheet","paper-drop"],[".job"],
       [".contact h2.big"],[".contact-row"],[".foot"]
     ];
