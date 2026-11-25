@@ -29,18 +29,18 @@
     --red-deep:#c92102;
     --rule:rgba(22,21,20,.16);
     --vellum:rgba(250,248,243,.55);
-    --vellum-solid:var(--vellum-solid);
+    --vellum-solid:rgba(250,248,243,.8);
     --ink-rgb:22,21,20;
-    --sheet:var(--sheet);
-    --card:var(--card);
+    --sheet:#e8e2d6;
+    --card:#f6f3ec;
     --rim:#fbf8f0;
-    --frame:var(--frame);
-    --frame-2:var(--frame-2);
-    --kraft:var(--kraft);
-    --piece-dark:var(--piece-dark);
+    --frame:#e2dbcd;
+    --frame-2:#d4ccbc;
+    --kraft:#cbb89a;
+    --piece-dark:#1d1b19;
     --stain:#6b4423;
-    --tape:var(--tape);
-    --nav-bg:var(--nav-bg);
+    --tape:rgba(236,230,214,.72);
+    --nav-bg:rgba(240,236,227,.92);
     --crease-hi:rgba(255,255,255,.55);
     --name-stroke:#fff;
     --fold-hi:rgba(255,255,255,.45);
@@ -77,7 +77,7 @@
     --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .93 0 0 0 0 .9 0 0 0 0 .84 .34 0 0 0 -.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     color-scheme:dark; }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;overflow-x:clip}
   body{
     background-color:var(--paper);
     background-image:var(--grain),var(--fibre),var(--crumple),var(--mottle);
@@ -540,6 +540,95 @@
     .hide-sm{display:none}
   }
 
+
+  /* ================= REDESIGN 2026-11-25 ================= */
+  /* ticker tape between hero and work */
+  .tapeband{position:relative;z-index:8;margin:-28px -3% -18px;rotate:-1.6deg;overflow:hidden;pointer-events:none;
+    background:var(--ink) var(--grain);color:var(--paper);box-shadow:0 10px 22px -14px rgba(30,20,10,.55)}
+  .tapeband div{display:flex;gap:28px;padding:15px 0;white-space:nowrap;font-family:var(--mono);font-size:14px;letter-spacing:.3em;text-transform:uppercase}
+  .tapeband span{display:inline-flex;gap:28px;align-items:center}
+  .tapeband b{color:var(--red);font-weight:500}
+
+  /* work: frames read as finished video posters */
+  .frame .tag{position:absolute;right:14px;top:18px;padding:3px 8px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(var(--ink-rgb),.35);color:var(--ink-2)}
+  .play{width:72px;height:72px;background:var(--ink);box-shadow:0 10px 24px -10px rgba(30,20,10,.6)}
+  .play::after{border-left-color:var(--paper);border-left-width:16px;border-top-width:10px;border-bottom-width:10px}
+  .work a:hover .play{box-shadow:0 10px 24px -10px rgba(244,41,2,.7)}
+  .scrub{position:absolute;left:14px;right:70px;bottom:24px;height:3px;border-radius:2px;background:rgba(var(--ink-rgb),.16)}
+  .scrub i{position:absolute;left:0;top:0;bottom:0;width:var(--p,30%);background:var(--red);border-radius:2px;transition:width .8s cubic-bezier(.16,1,.3,1)}
+  .scrub i::after{content:"";position:absolute;right:-5px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px rgba(244,41,2,.2)}
+  .work a:hover .scrub i{width:calc(var(--p,30%) + 22%)}
+  .frame.wide .dur{bottom:16px}
+  /* short-form: phone-style reel UI */
+  .short-grid .frame{border-radius:4px}
+  .reel-ui{position:absolute;inset:auto 0 0 0;padding:0 12px 30px;pointer-events:none}
+  .reel-ui .side{position:absolute;right:10px;bottom:34px;display:grid;gap:12px;justify-items:center}
+  .reel-ui .side i{width:20px;height:20px;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(var(--ink-rgb),.5)}
+  .reel-ui .side i:first-child{background:var(--red);box-shadow:none}
+  .reel-ui .who{display:block;margin-bottom:8px;color:var(--ink);font-size:10.5px}
+  .reel-ui .cap{display:grid;gap:5px;max-width:72%}
+  .reel-ui .cap b{height:5px;border-radius:3px;background:rgba(var(--ink-rgb),.2)}
+  .reel-ui .cap b:last-child{width:62%}
+  .short-grid .frame .dur{bottom:auto;top:18px;right:12px}
+  .short-grid .frame .ghost{bottom:auto;top:26%}
+
+  /* process: an edit timeline */
+  .process .sec-title{margin-bottom:40px}
+  .process-lede{max-width:46ch;color:var(--ink-2);font-size:18px;margin:-16px 0 56px}
+  .track{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative;padding-top:54px;counter-reset:step}
+  .track::before{content:"";position:absolute;left:0;right:0;top:12px;height:14px;border-bottom:1px solid var(--ink);
+    background:repeating-linear-gradient(90deg,rgba(var(--ink-rgb),.35) 0 1px,transparent 1px 12px) 0 100%/100% 6px no-repeat,
+      repeating-linear-gradient(90deg,rgba(var(--ink-rgb),.6) 0 1px,transparent 1px 120px) 0 100%/100% 14px no-repeat}
+  .track-wrap{position:relative}
+  .playhead{position:absolute;top:0;bottom:-18px;left:var(--ph,36%);width:2px;background:var(--red);z-index:2;pointer-events:none}
+  .playhead::before{content:"";position:absolute;left:-7px;top:0;border:8px solid transparent;border-top:11px solid var(--red);border-bottom:0}
+  .playhead span{position:absolute;left:12px;top:-2px;color:var(--red);white-space:nowrap}
+  .track li{position:relative;background:var(--card) var(--grain);padding:22px 22px 26px;border-top:6px solid var(--c,var(--ink));
+    box-shadow:0 1px 1px rgba(0,0,0,.05),0 18px 34px -24px rgba(30,25,15,.45);transition:translate .5s cubic-bezier(.16,1,.3,1)}
+  .track li:hover{translate:0 -4px}
+  .track li:nth-child(2){--c:var(--red)} .track li:nth-child(3){--c:var(--kraft)} .track li:nth-child(4){--c:var(--red-deep)}
+  .track .file{display:flex;justify-content:space-between;gap:8px;color:var(--ink-3);margin-bottom:34px}
+  .track h3{font-size:clamp(24px,2.2vw,30px);font-weight:700;letter-spacing:-.04em;line-height:1;margin-bottom:12px}
+  .track h3 .serif{font-weight:400}
+  .track p{color:var(--ink-2);font-size:15px}
+  .track .wave{display:block;height:22px;margin-top:22px;opacity:.5;
+    background:linear-gradient(90deg,var(--c,var(--ink)) 0 0) 0 50%/100% 1px no-repeat,
+      repeating-linear-gradient(90deg,var(--c,var(--ink)) 0 2px,transparent 2px 5px);
+    -webkit-mask:radial-gradient(60% 50% at 30% 50%,#000,transparent),radial-gradient(40% 40% at 75% 50%,#000 30%,transparent);
+            mask:radial-gradient(60% 50% at 30% 50%,#000,transparent),radial-gradient(40% 40% at 75% 50%,#000 30%,transparent)}
+
+  /* contact: headline + project brief side by side */
+  .contact-head{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end;margin-bottom:56px}
+  .contact-head .big{margin-bottom:0}
+  .brief{position:relative;z-index:2;width:290px;padding:22px 22px 26px;background:var(--card) var(--grain);color:var(--ink);rotate:2.5deg;margin-bottom:8px;
+    font-family:var(--mono);font-size:12px;line-height:1.6;filter:drop-shadow(0 14px 16px rgba(60,10,0,.35));
+    clip-path:polygon(0 2%,5% 0,10% 2%,15% 0,20% 2%,25% 0,30% 2%,35% 0,40% 2%,45% 0,50% 2%,55% 0,60% 2%,65% 0,70% 2%,75% 0,80% 2%,85% 0,90% 2%,95% 0,100% 2%,100% 98%,95% 100%,90% 98%,85% 100%,80% 98%,75% 100%,70% 98%,65% 100%,60% 98%,55% 100%,50% 98%,45% 100%,40% 98%,35% 100%,30% 98%,25% 100%,20% 98%,15% 100%,10% 98%,5% 100%,0 98%)}
+  .brief h3{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;display:flex;justify-content:space-between;
+    padding-bottom:10px;margin-bottom:12px;border-bottom:1px dashed rgba(var(--ink-rgb),.4)}
+  .brief ul{list-style:none;display:grid;gap:8px}
+  .brief li{display:grid;grid-template-columns:16px 1fr;gap:8px;color:var(--ink-2)}
+  .brief li::before{content:"";width:11px;height:11px;margin-top:4px;box-shadow:inset 0 0 0 1.5px var(--ink-2)}
+  .brief li.done::before{background:var(--red);box-shadow:none}
+  .brief .tot{display:flex;justify-content:space-between;margin-top:14px;padding-top:10px;border-top:1px dashed rgba(var(--ink-rgb),.4);color:var(--ink)}
+
+  @media (max-width:1000px){
+    .track{grid-template-columns:repeat(2,1fr);row-gap:22px}
+    .contact-head{grid-template-columns:1fr}
+    .brief{justify-self:start}
+  }
+  @media (max-width:760px){
+    .tapeband{margin:-10px -4% 0}
+    .tapeband div{font-size:12px;padding:12px 0}
+    .track{grid-template-columns:1fr;padding:0 0 0 30px}
+    .track::before{left:8px;right:auto;top:0;bottom:0;width:1px;height:auto;border:0;background:var(--ink)}
+    .playhead{display:none}
+    .track .file{margin-bottom:18px}
+    .process-lede{font-size:16px;margin-bottom:40px}
+    .brief{width:100%;max-width:330px;rotate:1.5deg}
+    .play{width:56px;height:56px}
+    .reel-ui .side{gap:9px}.reel-ui .side i{width:16px;height:16px}
+  }
+
   /* ================= MOTION ================= */
   .progress{position:fixed;left:0;top:0;right:0;height:3px;z-index:70;background:var(--red);transform-origin:0 50%;scale:0 1;pointer-events:none}
   /* sticky nav: becomes a frosted vellum strip after the hero */
@@ -692,6 +781,7 @@
       <li><a href="#work">Work</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#process">Process</a></li>
       <li><a href="#resume">Resume</a></li>
     </ul>
     <div class="nav-right">
@@ -714,9 +804,10 @@
       <li><a href="#top"><span class="mono">01</span>Home</a></li>
       <li><a href="#work"><span class="mono">02</span>Work</a></li>
       <li><a href="#services"><span class="mono">03</span>Services</a></li>
-      <li><a href="#about"><span class="mono">04</span>About</a></li>
-      <li><a href="#resume"><span class="mono">05</span>Resume</a></li>
-      <li><a href="#contact"><span class="mono">06</span>Contact</a></li>
+      <li><a href="#process"><span class="mono">04</span>Process</a></li>
+      <li><a href="#about"><span class="mono">05</span>About</a></li>
+      <li><a href="#resume"><span class="mono">06</span>Resume</a></li>
+      <li><a href="#contact"><span class="mono">07</span>Contact</a></li>
     </ol>
     <a href="#contact" class="btn menu-cta">Hire me ↗</a>
   </div>
@@ -811,6 +902,8 @@ little more.</div>
   </aside>
 </section>
 
+<div class="tapeband" aria-hidden="true"><div><span>Reels <b>✂</b> YouTube <b>✂</b> Brand films <b>✂</b> Thumbnails <b>✂</b> Motion graphics <b>✂</b> Shorts <b>✂</b> TikTok <b>✂</b></span><span>Reels <b>✂</b> YouTube <b>✂</b> Brand films <b>✂</b> Thumbnails <b>✂</b> Motion graphics <b>✂</b> Shorts <b>✂</b> TikTok <b>✂</b></span><span>Reels <b>✂</b> YouTube <b>✂</b> Brand films <b>✂</b> Thumbnails <b>✂</b> Motion graphics <b>✂</b> Shorts <b>✂</b> TikTok <b>✂</b></span></div></div>
+
 <!-- ================= WORK ================= -->
 <section id="work" class="work sheet-bg" style="--bg:var(--sheet)">
   <span aria-hidden="true" class="stamp" style="right:9%;top:240px;rotate:7deg">Final cut ✓</span>
@@ -832,12 +925,12 @@ SHUTTER 1/50 · ISO 800</div>
     <div class="long-grid">
       <a href="#" style="transform:rotate(-.6deg)">
         <span class="tape" style="--tr:-4deg" aria-hidden="true"></span>
-        <div class="frame wide torn"><span class="idx mono">01</span><span class="ghost">LONG</span><span class="play"></span><span class="dur mono">12:48</span></div>
+        <div class="frame wide torn"><span class="idx mono">01</span><span class="ghost">LONG</span><span class="tag mono">YouTube</span><span class="play"></span><span class="scrub" aria-hidden="true"><i style="--p:34%"></i></span><span class="dur mono">12:48</span></div>
         <div class="caption"><h3>Project title goes here</h3><span class="mono">Client — 2026</span></div>
       </a>
       <a href="#" style="transform:rotate(.5deg)">
         <span class="tape" style="--tr:3deg" aria-hidden="true"></span>
-        <div class="frame wide torn"><span class="idx mono">02</span><span class="ghost">FORM</span><span class="play"></span><span class="dur mono">08:21</span></div>
+        <div class="frame wide torn"><span class="idx mono">02</span><span class="ghost">FORM</span><span class="tag mono">Documentary</span><span class="play"></span><span class="scrub" aria-hidden="true"><i style="--p:58%"></i></span><span class="dur mono">08:21</span></div>
         <div class="caption"><h3>Project title goes here</h3><span class="mono">Client — 2026</span></div>
       </a>
     </div>
@@ -845,16 +938,16 @@ SHUTTER 1/50 · ISO 800</div>
     <div class="work-sub mono"><span>Short‑form</span><span>Reels / TikTok / Shorts</span></div>
     <div class="short-grid">
       <a href="#" style="transform:rotate(-1deg)"><span class="tape" style="--tr:2deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
-        <div class="frame tall torn"><span class="idx mono">03</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:45</span></div>
+        <div class="frame tall torn"><span class="idx mono">03</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:45</span><span class="reel-ui" aria-hidden="true"><span class="side"><i></i><i></i><i></i></span><span class="who mono">@client</span><span class="cap"><b></b><b></b></span></span></div>
         <div class="caption"><h3>Reel title</h3><span class="mono">1.2M views</span></div></a>
       <a href="#" style="transform:rotate(.8deg)"><span class="tape" style="--tr:-3deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
-        <div class="frame tall torn"><span class="idx mono">04</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:30</span></div>
+        <div class="frame tall torn"><span class="idx mono">04</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:30</span><span class="reel-ui" aria-hidden="true"><span class="side"><i></i><i></i><i></i></span><span class="who mono">@client</span><span class="cap"><b></b><b></b></span></span></div>
         <div class="caption"><h3>Reel title</h3><span class="mono">480K views</span></div></a>
       <a href="#" style="transform:rotate(-.4deg)"><span class="tape" style="--tr:4deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
-        <div class="frame tall torn"><span class="idx mono">05</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:58</span></div>
+        <div class="frame tall torn"><span class="idx mono">05</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:58</span><span class="reel-ui" aria-hidden="true"><span class="side"><i></i><i></i><i></i></span><span class="who mono">@client</span><span class="cap"><b></b><b></b></span></span></div>
         <div class="caption"><h3>Reel title</h3><span class="mono">900K views</span></div></a>
       <a href="#" style="transform:rotate(1.1deg)"><span class="tape" style="--tr:-2deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
-        <div class="frame tall torn"><span class="idx mono">06</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:22</span></div>
+        <div class="frame tall torn"><span class="idx mono">06</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:22</span><span class="reel-ui" aria-hidden="true"><span class="side"><i></i><i></i><i></i></span><span class="who mono">@client</span><span class="cap"><b></b><b></b></span></span></div>
         <div class="caption"><h3>Reel title</h3><span class="mono">310K views</span></div></a>
     </div>
   </div>
@@ -893,6 +986,28 @@ SHUTTER 1/50 · ISO 800</div>
   </div>
 </section>
 
+<!-- ================= PROCESS ================= -->
+<section id="process" class="process sheet-bg" style="--bg:var(--sheet)">
+  <span aria-hidden="true" class="dymo" style="left:6%;top:150px;rotate:-4deg">No surprises</span>
+  <div aria-hidden="true" class="bleed big" style="right:-2%;top:90px;font-size:200px">PROCESS</div>
+  <div aria-hidden="true" class="bleed txt red-ink" style="left:4%;bottom:70px;--br:-2deg">V1 → V2 → FINAL
+notes in, cuts out.</div>
+  <div class="wrap">
+    <div class="sec-top mono"><span>(04) Process</span><span>From footage to final</span></div>
+    <h2 class="sec-title ink">How a project <span class="serif">runs.</span></h2>
+    <p class="process-lede">Four steps, one timeline. You always know which cut you're looking at and what happens next.</p>
+    <div class="track-wrap">
+    <span class="playhead" aria-hidden="true"><span class="mono">You are here</span></span>
+    <ol class="track">
+      <li><div class="file mono"><span>01</span><span>footage_raw.mov</span></div><h3>Send the <span class="serif">footage</span></h3><p>One link with your clips, the platform, a deadline and a video whose style you love.</p><span class="wave" aria-hidden="true"></span></li>
+      <li><div class="file mono"><span>02</span><span>cut_v1.mp4</span></div><h3>First <span class="serif">cut</span></h3><p>I build the story: hook, pacing, music and captions, then send a full draft to review.</p><span class="wave" aria-hidden="true"></span></li>
+      <li><div class="file mono"><span>03</span><span>notes.txt</span></div><h3>Your <span class="serif">notes</span></h3><p>Leave timestamped notes. I tighten, swap and polish until it feels right.</p><span class="wave" aria-hidden="true"></span></li>
+      <li><div class="file mono"><span>04</span><span>final_v7.mp4</span></div><h3>Final <span class="serif">export</span></h3><p>Delivered in every size you need: 9:16, 16:9 and 1:1, ready to post.</p><span class="wave" aria-hidden="true"></span></li>
+    </ol>
+    </div>
+  </div>
+</section>
+
 <!-- ================= ABOUT ================= -->
 <section id="about" class="sheet-bg" style="--bg:var(--sheet)">
   <span aria-hidden="true" class="dymo black" style="right:8%;top:120px;rotate:4deg">B-roll</span>
@@ -903,7 +1018,7 @@ less is more.
 then cut a little more.</div>
   <div aria-hidden="true" class="bleed tiny" style="left:3%;bottom:40px">FIG. 01 · FIG. 02 · FIG. 03 · CONTACT SHEET</div>
   <div class="wrap">
-    <div class="sec-top mono"><span>(04) About</span><span>The person behind the timeline</span></div>
+    <div class="sec-top mono"><span>(05) About</span><span>The person behind the timeline</span></div>
     <div class="about-grid">
       <div class="print">
         <div class="red-scrap torn"></div>
@@ -936,7 +1051,7 @@ DO NOT FOLD</div>
   <div aria-hidden="true" class="bleed big red-ink" style="right:-2%;bottom:20px;font-size:170px;--br:3deg">RÉSUMÉ</div>
   <div aria-hidden="true" class="bleed tiny red-ink" style="right:6%;top:100px">✂ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─</div>
   <div class="wrap">
-    <div class="sec-top mono"><span>(05) Resume</span><span>The short version</span></div>
+    <div class="sec-top mono"><span>(06) Resume</span><span>The short version</span></div>
     <div class="resume-stage">
       <div class="resume-ghost ink" aria-hidden="true">CV</div>
       <div class="sheet vellum">
@@ -967,10 +1082,22 @@ DO NOT FOLD</div>
 drive / dropbox / wetransfer
 turnaround 24–72h</div>
   <div aria-hidden="true" class="bleed tiny" style="right:4%;bottom:120px;color:var(--ink);opacity:.16">EXPORT ▸ H.264 ▸ 1080P ▸ −14 LUFS</div>
-  <svg aria-hidden="true" class="splat" style="right:30%;top:220px;width:160px;height:130px;fill:var(--ink);opacity:.85;transform:rotate(160deg)"><use href="#splatter"/></svg>
+  <svg aria-hidden="true" class="splat hide-sm" style="right:5%;bottom:22%;width:120px;height:100px;fill:var(--ink);opacity:.85;transform:rotate(160deg)"><use href="#splatter"/></svg>
   <div class="wrap">
-    <div class="sec-top mono"><span>(06) Contact</span><span>Usually replies within a day</span></div>
-    <h2 class="big ink">Got footage?<br><span class="serif">Let’s talk.</span></h2>
+    <div class="sec-top mono"><span>(07) Contact</span><span>Usually replies within a day</span></div>
+    <div class="contact-head">
+      <h2 class="big ink">Got footage?<br><span class="serif">Let’s talk.</span></h2>
+      <div class="brief">
+        <h3><span>Project brief</span><span>№ 001</span></h3>
+        <ul>
+          <li class="done">Footage link (Drive, Dropbox, WeTransfer)</li>
+          <li>Where it’s posted: Reels, TikTok, YouTube</li>
+          <li>Deadline</li>
+          <li>A video whose style you love</li>
+        </ul>
+        <div class="tot"><span>Reply</span><span>within a day</span></div>
+      </div>
+    </div>
     <div class="contact-row">
       <a href="mailto:hello@yourname.com" class="mail">hello@yourname.com</a>
       <ul class="socials mono">
@@ -1001,6 +1128,7 @@ turnaround 24–72h</div>
       [".long-grid>a","paper-drop"],[".short-grid>a","paper-drop"],
       [".svc-list li"],[".stat"],
       [".print","paper-drop"],[".about-copy>*"],
+      [".track li","paper-drop"],[".process-lede"],[".brief","paper-drop"],
       [".resume-ghost"],[".sheet","paper-drop"],[".job"],
       [".contact h2.big"],[".contact-row"],[".foot"]
     ];
