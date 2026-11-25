@@ -360,7 +360,7 @@
   .sheet-foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;padding-top:24px;border-top:1px solid var(--ink)}
 
   /* ---------- contact (red torn sheet) ---------- */
-  .contact{--bg:var(--red);color:#fff4ec;padding:128px 0 40px;margin-top:24px}
+  .contact{--bg:var(--red);color:#fff4ec;padding:128px 0 72px;margin-top:24px}
   .contact .sec-top{border-color:#fff4ec;color:rgba(255,244,236,.8)}
   .contact .sec-top span:first-child::first-letter{color:inherit}
   .contact .big{font-size:clamp(56px,13vw,210px);line-height:.86;letter-spacing:-.065em;font-weight:900;margin-bottom:56px;color:#fff4ec}
@@ -371,7 +371,8 @@
   .mail:hover{opacity:.7}
   .contact-row{display:flex;justify-content:space-between;align-items:end;gap:40px;flex-wrap:wrap;position:relative;z-index:1}
   .socials{list-style:none;display:flex;gap:28px}
-  .foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:120px;padding-top:16px;border-top:1px solid rgba(255,244,236,.7);color:rgba(255,244,236,.8)}
+  .foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:120px;padding-top:16px;border-top:1px solid rgba(255,244,236,.7);color:#fff4ec}
+  .foot a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,244,236,.5)}
 
   /* ---------- theme toggle ---------- */
   .nav-right{display:flex;align-items:center;gap:20px}
@@ -1187,6 +1188,10 @@ little more.</div>
       ticking=false;
       var y=scrollY,vh=innerHeight;
       var st=y>hero.offsetHeight*.6; if(st!==stuck){stuck=st;nav.classList.toggle("stuck",st);}
+      /* near the end of the page the last lines can never scroll up to the reveal line: show whatever is on screen */
+      if(y+vh>=document.documentElement.scrollHeight-vh*.14){
+        $(".reveal:not(.in)").forEach(function(el){ var r=el.getBoundingClientRect(); if(r.top<vh&&r.bottom>0){ el.classList.add("in"); el.classList.remove("above"); } });
+      }
       if(native||reduce)return;
       var doc=document.documentElement.scrollHeight-vh;
       bar.style.transform="scaleX("+(doc>0?y/doc:0)+")";bar.style.scale="1 1";
