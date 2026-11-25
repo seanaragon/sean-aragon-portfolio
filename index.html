@@ -1207,6 +1207,8 @@ little more.</div>
       if(!t&&id!=="#")return; e.preventDefault();
       window.__goto(t||0,id);
     });
+    /* an old #section link still lands on its section, then the address goes back to the one site link */
+    if(location.hash.length>1){ var h0=null; try{ h0=document.querySelector(location.hash); }catch(e){} history.replaceState(null,"",location.pathname+location.search); if(h0) addEventListener("load",function(){ h0.scrollIntoView({behavior:"auto"}); }); }
     var wipe=document.querySelector(".wipe"),busy=false;
     function labelFor(t){
       var top=t&&t.querySelector(".sec-top span");
@@ -1217,7 +1219,7 @@ little more.</div>
     function jump(t){ var h=document.documentElement,prev=h.style.scrollBehavior;h.style.scrollBehavior="auto";
       if(t) t.scrollIntoView({behavior:"auto"}); else scrollTo(0,0); h.style.scrollBehavior=prev; }
     window.__goto=function(t,id){
-      if(id&&id!=="#") history.replaceState(null,"",id);
+      /* one link for the whole site: the address bar never gains #section */
       if(reduce||!wipe){ if(t) t.scrollIntoView({behavior:reduce?"auto":"smooth"}); else scrollTo({top:0,behavior:reduce?"auto":"smooth"}); return; }
       if(busy) return; busy=true;
       var l=labelFor(t),words=l.name.split(" "),last=words.pop();
