@@ -651,6 +651,33 @@
   @media (prefers-reduced-motion:reduce){ .wipe{display:none} }
   h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
 
+  /* ---------- real work: posters, hover previews, player ---------- */
+  .frame.media{background:#111}
+  .frame.media .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:scale .7s cubic-bezier(.16,1,.3,1)}
+  .frame.media>*:not(.poster){z-index:1}
+  .frame.media::after{z-index:2;opacity:.55}
+  .work a.vid:hover .poster{scale:1.03}
+  .frame.media .idx,.frame.media .dur,.frame.media .tag{color:#fff;background:rgba(10,9,8,.62);box-shadow:none;padding:3px 8px;border-radius:999px;backdrop-filter:none}
+  .frame.media .play{background:rgba(22,21,20,.78);box-shadow:0 10px 28px -8px rgba(0,0,0,.6)}
+  .frame.media .play::after{border-left-color:#fff}
+  .work a.vid:hover .play{background:var(--red)}
+  .short-grid .frame.media .play{opacity:0;transition:opacity .25s,transform .25s,background .25s}
+  .short-grid a.vid:hover .play,.short-grid a.vid:focus-visible .play{opacity:1}
+  .frame.media video.preview{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .frame.cine.media .reel-name{text-shadow:0 4px 30px rgba(0,0,0,.45)}
+  .frame.cine.media::before{background:#111}
+  .frame.cine.media .shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(8,7,6,.62),rgba(8,7,6,.15) 55%,transparent),linear-gradient(0deg,rgba(8,7,6,.55),transparent 50%),linear-gradient(180deg,rgba(8,7,6,.45),transparent 22%)}
+  .frame.cine.media{isolation:isolate}
+  .frame.cine.media .poster{filter:brightness(.78)}
+  @media (pointer:coarse){ .short-grid .frame.media .play{opacity:1;width:48px;height:48px} }
+  .player{margin:auto;padding:0;border:0;background:transparent;max-width:min(96vw,1280px);overflow:visible}
+  .player::backdrop{background:rgba(12,11,10,.88)}
+  .player video{display:block;max-width:min(96vw,1280px);max-height:86vh;border-radius:6px;background:#000;box-shadow:0 30px 80px -20px rgba(0,0,0,.8)}
+  .player.reel video{height:86vh;width:auto;aspect-ratio:9/16}
+  .player-close{position:absolute;right:0;top:-44px;min-height:36px;padding:6px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.4);background:none;color:#fff;cursor:pointer}
+  .player-close:hover{background:var(--red);border-color:var(--red)}
+  .player[open]{animation:fadeUp .4s cubic-bezier(.16,1,.3,1)}
+
   /* ================= MOTION ================= */
   .progress{position:fixed;left:0;top:0;right:0;height:3px;z-index:70;background:var(--red);transform-origin:0 50%;scale:0 1;pointer-events:none}
   /* sticky nav: becomes a frosted vellum strip after the hero */
@@ -798,6 +825,10 @@
 
 <!-- ================= NAV ================= -->
 <div class="progress" aria-hidden="true"></div>
+<dialog class="player" aria-label="Video player">
+  <button class="player-close mono" type="button" aria-label="Close video">Close ✕</button>
+  <video controls playsinline preload="none"></video>
+</dialog>
 <div class="wipe" aria-hidden="true"><div class="wipe-sheet"><div class="wipe-label"><span class="mono"></span><b></b></div></div></div>
 <header class="nav">
   <div class="wrap">
@@ -936,49 +967,49 @@ little more.</div>
     <div class="sec-top mono"><span>(02) Selected work</span><span>2024 — 2026</span></div>
     <h2 class="sec-title ink">Selected <span class="serif">work</span></h2>
 
-    <div class="work-sub mono"><span>Showreel</span><span>The best cuts in 2 minutes</span></div>
-    <a href="#" class="showreel">
+    <div class="work-sub mono"><span>Showreel</span><span>The best cuts in 20 seconds</span></div>
+    <a href="assets/work/showreel.mp4" class="showreel vid" data-video="assets/work/showreel.mp4" data-kind="wide">
       <span class="tape" aria-hidden="true"></span><span class="tape r" aria-hidden="true"></span>
-      <div class="frame cine torn">
-        <span class="ghost" aria-hidden="true">REEL</span>
-        <span class="reel-meta mono" aria-hidden="true"><span class="rec">Rec</span><span>Reel 2026</span><span>16:9 · 4K</span></span>
+      <div class="frame cine torn media">
+        <video class="poster" src="assets/work/showreel.mp4" poster="assets/work/showreel.webp" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="shade" aria-hidden="true"></span>
+        <span class="reel-meta mono" aria-hidden="true"><span class="rec">Rec</span><span>Reel 2026</span><span>Wedding · Real estate · Reels</span></span>
         <span class="tag mono">Showreel</span>
         <span class="reel-name">Showreel <span class="serif">’26</span></span>
-        <span class="play"></span>
-        <span class="scrub" aria-hidden="true"><i style="--p:22%"></i></span>
-        <span class="dur mono">02:00</span>
+        <span class="play" aria-hidden="true"></span>
+        <span class="dur mono">00:20</span>
       </div>
-      <div class="caption"><h3>Watch the 2026 showreel</h3><span class="mono">Reels · YouTube · Brand</span></div>
+      <div class="caption"><h3>Watch the 2026 showreel</h3><span class="mono">With sound · 0:20</span></div>
     </a>
 
-    <div class="work-sub mono"><span>Long‑form</span><span>YouTube / Documentary</span></div>
+    <div class="work-sub mono"><span>Long‑form</span><span>YouTube home tours</span></div>
     <div class="long-grid">
-      <a href="#" style="transform:rotate(-.6deg)">
+      <a href="assets/work/long-roseville.mp4" class="vid" data-video="assets/work/long-roseville.mp4" data-kind="wide" style="transform:rotate(-.6deg)">
         <span class="tape" style="--tr:-4deg" aria-hidden="true"></span>
-        <div class="frame wide torn"><span class="idx mono">01</span><span class="ghost">LONG</span><span class="tag mono">YouTube</span><span class="play"></span><span class="scrub" aria-hidden="true"><i style="--p:34%"></i></span><span class="dur mono">12:48</span></div>
-        <div class="caption"><h3>Project title goes here</h3><span class="mono">Client — 2026</span></div>
+        <div class="frame wide torn media"><img class="poster" src="assets/work/long-roseville.webp" alt="Thumbnail: 8 hottest deals in Roseville" width="1280" height="720" loading="lazy" decoding="async"><span class="idx mono">01</span><span class="tag mono">YouTube</span><span class="play" aria-hidden="true"></span><span class="dur mono">15:55</span></div>
+        <div class="caption"><h3>8 move‑in ready homes in Roseville</h3><span class="mono">Home tour · first 60s</span></div>
       </a>
-      <a href="#" style="transform:rotate(.5deg)">
+      <a href="assets/work/long-folsom.mp4" class="vid" data-video="assets/work/long-folsom.mp4" data-kind="wide" style="transform:rotate(.5deg)">
         <span class="tape" style="--tr:3deg" aria-hidden="true"></span>
-        <div class="frame wide torn"><span class="idx mono">02</span><span class="ghost">FORM</span><span class="tag mono">Documentary</span><span class="play"></span><span class="scrub" aria-hidden="true"><i style="--p:58%"></i></span><span class="dur mono">08:21</span></div>
-        <div class="caption"><h3>Project title goes here</h3><span class="mono">Client — 2026</span></div>
+        <div class="frame wide torn media"><img class="poster" src="assets/work/long-folsom.webp" alt="Thumbnail: best price in Folsom, no backyard neighbor" width="1280" height="720" loading="lazy" decoding="async"><span class="idx mono">02</span><span class="tag mono">YouTube</span><span class="play" aria-hidden="true"></span><span class="dur mono">06:50</span></div>
+        <div class="caption"><h3>Best price in Folsom, no backyard neighbor</h3><span class="mono">Home tour · first 60s</span></div>
       </a>
     </div>
 
     <div class="work-sub mono"><span>Short‑form</span><span>Reels / TikTok / Shorts</span></div>
     <div class="short-grid">
-      <a href="#" style="transform:rotate(-1deg)"><span class="tape" style="--tr:2deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
-        <div class="frame tall torn"><span class="idx mono">03</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:45</span><span class="reel-ui" aria-hidden="true"><span class="side"><i></i><i></i><i></i></span><span class="who mono">@client</span><span class="cap"><b></b><b></b></span></span></div>
-        <div class="caption"><h3>Reel title</h3><span class="mono">1.2M views</span></div></a>
-      <a href="#" style="transform:rotate(.8deg)"><span class="tape" style="--tr:-3deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
-        <div class="frame tall torn"><span class="idx mono">04</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:30</span><span class="reel-ui" aria-hidden="true"><span class="side"><i></i><i></i><i></i></span><span class="who mono">@client</span><span class="cap"><b></b><b></b></span></span></div>
-        <div class="caption"><h3>Reel title</h3><span class="mono">480K views</span></div></a>
-      <a href="#" style="transform:rotate(-.4deg)"><span class="tape" style="--tr:4deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
-        <div class="frame tall torn"><span class="idx mono">05</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:58</span><span class="reel-ui" aria-hidden="true"><span class="side"><i></i><i></i><i></i></span><span class="who mono">@client</span><span class="cap"><b></b><b></b></span></span></div>
-        <div class="caption"><h3>Reel title</h3><span class="mono">900K views</span></div></a>
-      <a href="#" style="transform:rotate(1.1deg)"><span class="tape" style="--tr:-2deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
-        <div class="frame tall torn"><span class="idx mono">06</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:22</span><span class="reel-ui" aria-hidden="true"><span class="side"><i></i><i></i><i></i></span><span class="who mono">@client</span><span class="cap"><b></b><b></b></span></span></div>
-        <div class="caption"><h3>Reel title</h3><span class="mono">310K views</span></div></a>
+      <a href="assets/work/reel-3cities.mp4" class="vid" data-video="assets/work/reel-3cities.mp4" data-kind="reel" style="transform:rotate(-1deg)"><span class="tape" style="--tr:2deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
+        <div class="frame tall torn media"><img class="poster" src="assets/work/reel-3cities.webp" alt="Reel hook: 3 areas, 1 decision" width="720" height="1280" loading="lazy" decoding="async"><span class="idx mono">03</span><span class="play" aria-hidden="true"></span><span class="dur mono">1:01</span></div>
+        <div class="caption"><h3>3 areas. 1 decision.</h3><span class="mono">Reel · 1:01</span></div></a>
+      <a href="assets/work/reel-rates.mp4" class="vid" data-video="assets/work/reel-rates.mp4" data-kind="reel" style="transform:rotate(0.8deg)"><span class="tape" style="--tr:-3deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
+        <div class="frame tall torn media"><img class="poster" src="assets/work/reel-rates.webp" alt="Reel hook: mortgage rates are high, 7.5 percent" width="720" height="1280" loading="lazy" decoding="async"><span class="idx mono">04</span><span class="play" aria-hidden="true"></span><span class="dur mono">0:54</span></div>
+        <div class="caption"><h3>Rates are high. Now what?</h3><span class="mono">Reel · 0:54</span></div></a>
+      <a href="assets/work/reel-risewell.mp4" class="vid" data-video="assets/work/reel-risewell.mp4" data-kind="reel" style="transform:rotate(-0.4deg)"><span class="tape" style="--tr:4deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
+        <div class="frame tall torn media"><img class="poster" src="assets/work/reel-risewell.webp" alt="Reel hook: the only single-story home" width="720" height="1280" loading="lazy" decoding="async"><span class="idx mono">05</span><span class="play" aria-hidden="true"></span><span class="dur mono">0:23</span></div>
+        <div class="caption"><h3>The only single‑story home</h3><span class="mono">Reel · 0:23</span></div></a>
+      <a href="assets/work/reel-negotiation.mp4" class="vid" data-video="assets/work/reel-negotiation.mp4" data-kind="reel" style="transform:rotate(1.1deg)"><span class="tape" style="--tr:-2deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
+        <div class="frame tall torn media"><img class="poster" src="assets/work/reel-negotiation.webp" alt="Reel hook: first-time buyers buying without an agent" width="720" height="1280" loading="lazy" decoding="async"><span class="idx mono">06</span><span class="play" aria-hidden="true"></span><span class="dur mono">0:53</span></div>
+        <div class="caption"><h3>Buying without an agent?</h3><span class="mono">Reel · 0:53</span></div></a>
     </div>
   </div>
 </section>
@@ -1180,6 +1211,31 @@ little more.</div>
       if(e.isIntersecting){for(var k in links){links[k].classList.remove("on");links[k].removeAttribute("aria-current")}a.classList.add("on");a.setAttribute("aria-current","true");}
       else a.removeAttribute("aria-current");});},{rootMargin:"-45% 0px -50% 0px"});
     Object.keys(links).forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el)});
+  })();
+
+  /* ---------- real work: showreel loop, hover previews, player ---------- */
+  (function(){
+    var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches,fine=matchMedia("(hover:hover) and (pointer:fine)").matches;
+    var dlg=document.querySelector(".player"),pv=dlg.querySelector("video"),last=null;
+    var loop=document.querySelector(".showreel video.poster");
+    if(loop&&!reduce){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var p=loop.play(); if(p&&p.catch)p.catch(function(){}); } else loop.pause(); }); },{threshold:.25}); io.observe(loop); }
+    function open(a){
+      last=a; dlg.classList.toggle("reel",a.getAttribute("data-kind")==="reel");
+      pv.src=a.getAttribute("data-video"); pv.muted=false;
+      if(loop) loop.pause();
+      if(dlg.showModal) dlg.showModal(); else dlg.setAttribute("open","");
+      var p=pv.play(); if(p&&p.catch)p.catch(function(){});
+    }
+    function close(){ pv.pause(); pv.removeAttribute("src"); pv.load(); if(dlg.open) dlg.close(); }
+    dlg.addEventListener("close",function(){ pv.pause(); pv.removeAttribute("src"); pv.load(); if(last) last.focus(); if(loop&&!reduce){ var p=loop.play(); if(p&&p.catch)p.catch(function(){}); } });
+    dlg.addEventListener("click",function(e){ if(e.target===dlg||e.target.closest(".player-close")) close(); });
+    Array.prototype.forEach.call(document.querySelectorAll("a.vid"),function(a){
+      a.addEventListener("click",function(e){ if(e.metaKey||e.ctrlKey||e.shiftKey)return; e.preventDefault(); open(a); });
+      if(!fine||reduce||a.getAttribute("data-kind")!=="reel")return;
+      var fr=a.querySelector(".frame"),v=null,t=null;
+      a.addEventListener("pointerenter",function(){ t=setTimeout(function(){ v=document.createElement("video"); v.className="preview"; v.muted=true; v.loop=true; v.playsInline=true; v.setAttribute("aria-hidden","true"); v.src=a.getAttribute("data-video"); fr.insertBefore(v,fr.children[1]); var p=v.play(); if(p&&p.catch)p.catch(function(){}); },180); });
+      a.addEventListener("pointerleave",function(){ clearTimeout(t); if(v){ v.pause(); v.remove(); v=null; } });
+    });
   })();
 
   /* ---------- light / dark switch ---------- */
