@@ -13,6 +13,7 @@
 <meta property="og:image:alt" content="Portrait of Sean Aragon, video editor">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#eee9df">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2712%27 fill=%27%23F42902%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -228,9 +229,9 @@
   .hero-photo .tape{top:-6px;left:50%;margin-left:-42px;transform:rotate(-6deg)}
   .hero-photo .tape.b{top:74%;left:auto;right:6%;transform:rotate(-30deg)}
 
-  .hero-copy{position:absolute;z-index:4;left:32px;bottom:64px;max-width:380px}
+  .hero-copy{position:absolute;z-index:4;left:32px;bottom:64px;max-width:420px}
   .hero-copy .mono{color:var(--ink-2);display:block;margin-bottom:18px}
-  .hero-copy h1{font-size:clamp(34px,3.6vw,50px);line-height:1.02;letter-spacing:-.04em;font-weight:800}
+  .hero-copy h1{font-size:clamp(36px,4vw,60px);line-height:1.02;letter-spacing:-.04em;font-weight:800}
   .hero-copy h1 .serif{font-size:1.12em;font-weight:400}
   .hero-copy .circled{margin-right:.22em}
   .hero-copy p{margin:18px 0 26px;color:var(--ink-2);font-size:16px;max-width:34ch}
@@ -244,11 +245,11 @@
   .hand-note{position:absolute;z-index:4;font-family:var(--serif);font-style:italic;font-size:26px;line-height:1;color:var(--red)}
 
   /* ---------- section scaffolding ---------- */
-  section{position:relative;padding:130px 0}
+  section{position:relative;padding:112px 0}
   section,footer{overflow-x:clip}
   .sec-top{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--ink);padding-top:14px;margin-bottom:56px;color:var(--ink-2)}
   .sec-top span:first-child::first-letter{color:var(--red)}
-  .sec-title{font-size:clamp(44px,6.4vw,92px);line-height:.92;letter-spacing:-.055em;font-weight:800;margin-bottom:64px;position:relative;z-index:1}
+  .sec-title{font-size:clamp(34px,4.4vw,60px);line-height:.94;letter-spacing:-.05em;font-weight:800;margin-bottom:56px;position:relative;z-index:1}
   .sec-title .serif{font-weight:400;letter-spacing:-.03em}
   section .wrap{position:relative}
   /* torn sheet backgrounds for alternating sections */
@@ -313,7 +314,7 @@
   .stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:90px;position:relative;z-index:1}
   .stat{padding:6px 24px 0;border-left:1px solid var(--rule)}
   .stat:first-child{border-left:0;padding-left:0}
-  .stat b{display:block;font-size:clamp(44px,5vw,72px);font-weight:800;letter-spacing:-.06em;line-height:1}
+  .stat b{display:block;font-size:clamp(36px,4vw,58px);font-weight:800;letter-spacing:-.06em;line-height:1}
   .stat b em{font-style:normal;color:var(--red)}
   .stat span{color:var(--ink-3)}
 
@@ -333,7 +334,7 @@
   .print .slip{position:absolute;right:-60px;bottom:-34px;width:230px;padding:16px 18px;transform:rotate(4deg)}
   .print .slip p{font-size:22px;line-height:1.15}
   .print .red-scrap{position:absolute;--bg:var(--red);width:150px;height:150px;left:-40px;top:40%;z-index:-1;transform:rotate(-10deg)}
-  .about-copy h2{font-size:clamp(36px,4.4vw,62px);line-height:.98;letter-spacing:-.05em;font-weight:800;margin-bottom:28px}
+  .about-copy h2{font-size:clamp(32px,4vw,56px);line-height:.98;letter-spacing:-.05em;font-weight:800;margin-bottom:28px}
   .about-copy p{font-size:18px;color:var(--ink-2);max-width:54ch;margin-bottom:18px}
   .about-copy .lede{font-size:21px;color:var(--ink);line-height:1.45}
   .tools{margin-top:40px;border-top:1px solid var(--rule);padding-top:16px;display:grid;grid-template-columns:120px 1fr;gap:12px}
@@ -356,10 +357,10 @@
   .job h3{font-size:21px;font-weight:600;letter-spacing:-.02em}
   .job p{color:var(--ink-2);font-size:15px;margin-top:4px;max-width:52ch}
   .job .co{font-family:var(--serif);font-style:italic;font-size:20px;white-space:nowrap}
-  .sheet-foot{display:flex;justify-content:flex-end;padding-top:24px;border-top:1px solid var(--ink)}
+  .sheet-foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;padding-top:24px;border-top:1px solid var(--ink)}
 
   /* ---------- contact (red torn sheet) ---------- */
-  .contact{--bg:var(--red);color:#fff4ec;padding:150px 0 40px;margin-top:40px}
+  .contact{--bg:var(--red);color:#fff4ec;padding:128px 0 40px;margin-top:24px}
   .contact .sec-top{border-color:#fff4ec;color:rgba(255,244,236,.8)}
   .contact .sec-top span:first-child::first-letter{color:inherit}
   .contact .big{font-size:clamp(56px,13vw,210px);line-height:.86;letter-spacing:-.065em;font-weight:900;margin-bottom:56px;color:#fff4ec}
@@ -450,15 +451,17 @@
     .wrap{padding:0 16px}
     .nav ul,.nav .hire{display:none}
     .menu-toggle{display:inline-flex}
-    .hero{min-height:auto;padding:84px 0 56px}
+    .hero{min-height:auto;padding:76px 0 48px}
     .bigname{position:relative;top:0;font-size:25vw;padding:0 8px;line-height:.88;white-space:normal}
     .hero-meta{position:relative;top:auto;left:auto;right:auto;padding:12px 16px 0}
-    .hero-photo{position:relative;left:auto;bottom:auto;transform:rotate(-1.5deg);height:auto;width:80%;margin:-6vw auto 0}
-    .p-red{top:296px;left:50%;width:62vw;height:92vw;transform:translateX(-46%) rotate(4deg)}
+    .hero-photo{position:relative;left:auto;bottom:auto;transform:rotate(-1.5deg);height:auto;width:58%;margin:-6vw auto 0}
+    .p-red{top:296px;left:50%;width:54vw;height:70vw;transform:translateX(-46%) rotate(4deg)}
     .p-grey{width:180px;height:120px}
     .p-black{left:110px;top:80px;width:80px;height:28px}
     .p-vellum,.p-kraft,.p-strip,.d-lines,.d-arrow,.hand-note{display:none}
-    .hero-copy{position:relative;left:auto;bottom:auto;padding:40px 16px 0;max-width:none}
+    .hero-copy{position:relative;left:auto;bottom:auto;padding:24px 16px 0;max-width:none}
+    .hero-copy .mono{margin-bottom:12px}
+    .hero-copy p{margin:12px 0 20px}
     section{padding:90px 0}
     .sec-title{margin-bottom:44px}
     .long-grid{grid-template-columns:1fr;margin-bottom:60px}
@@ -466,7 +469,7 @@
     .caption{flex-direction:column;gap:4px}
     .svc-list li>a{grid-template-columns:36px 1fr 24px;gap:14px;padding:24px 0}
     .stat{padding:0 14px}
-    .stat b{font-size:42px}
+    .stat b{font-size:36px}
     .print .slip{right:-8px;bottom:-40px;width:200px}
     .print .tape.b{right:-12px}
     .print .red-scrap{left:-14px;width:100px;height:100px}
@@ -583,7 +586,8 @@
 
   /* ================= ROUND 3 ================= */
   /* tablet hero: keep the name, photo and note from colliding */
-  @media (max-width:1180px){ .p-news,.hero-note{display:none} }
+  @media (max-width:1180px){ .hero-note{display:none} }
+  @media (max-width:1340px){ .p-news{display:none} }
   /* showreel feature */
   .showreel{display:block;position:relative;margin-bottom:84px}
   .showreel .tape{top:-12px;left:8%;transform:rotate(-4deg)}
@@ -657,7 +661,7 @@
   /* scroll reveals — use individual translate/rotate/scale so existing transforms stay intact */
   .js .reveal{opacity:.12;translate:0 32px;transition:opacity 1s ease-out,translate 1.3s cubic-bezier(.16,1,.3,1),rotate 1.3s cubic-bezier(.16,1,.3,1),scale 1.3s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s)}
   .js .reveal.paper-drop{translate:0 44px;rotate:-1.6deg;scale:.975}
-  .js .reveal.in{opacity:1;translate:0 0;rotate:0deg;scale:1}
+  .js .reveal.in,.js .reveal:focus-within,.js a.reveal:focus-visible{opacity:1;translate:0 0;rotate:0deg;scale:1}
   .js .sec-top.reveal{opacity:1;translate:0 0;border-top-color:transparent;position:relative}
   .js .sec-top.reveal::before{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;background:currentColor;color:var(--ink);transform-origin:0 50%;scale:0 1;transition:scale 1.2s cubic-bezier(.7,0,.2,1)}
   .contact .sec-top.reveal::before{color:#fff4ec}
@@ -1022,7 +1026,7 @@ little more.</div>
         <div class="job"><span class="mono">2023 — 2025</span><div><h3>Job title</h3><p>One or two lines on what you did and the results.</p></div><span class="co">Company</span></div>
         <div class="job"><span class="mono">2021 — 2023</span><div><h3>Job title</h3><p>One or two lines on what you did and the results.</p></div><span class="co">Company</span></div>
         <div class="job"><span class="mono">Education</span><div><h3>Degree / Certificate</h3><p>Optional line on coursework or achievements.</p></div><span class="co">School</span></div>
-        <div class="sheet-foot"><a href="#" class="mono link-btn">Download résumé (PDF) ↓</a></div>
+        <div class="sheet-foot"><a href="#contact" class="btn">Hire me ↗</a><a href="#" class="mono link-btn">Download résumé (PDF) ↓</a></div>
       </div>
     </div>
   </div>
