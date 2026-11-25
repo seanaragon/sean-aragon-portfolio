@@ -8,6 +8,10 @@
 <meta property="og:title" content="Sean Aragon — Video Editor">
 <meta property="og:description" content="Reels, YouTube and brand edits. Raw footage in. Stories out.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://seanaragon.github.io/sean-aragon-portfolio/">
+<meta property="og:image" content="https://seanaragon.github.io/sean-aragon-portfolio/assets/me-src.webp">
+<meta property="og:image:alt" content="Portrait of Sean Aragon, video editor">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#eee9df">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -86,11 +90,22 @@
   }
   ::selection{background:var(--red);color:#fff}
   a{color:inherit;text-decoration:none}
-  img{display:block;max-width:100%}
+  img{display:block;max-width:100%;height:auto}
+  a,button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+  h1,h2,h3{text-wrap:balance}
+  p{text-wrap:pretty}
+  .stat b,.dur,.idx,.job>.mono{font-variant-numeric:tabular-nums}
+  /* in-page jumps and keyboard focus land below the sticky nav */
+  section[id],footer[id]{scroll-margin-top:58px}
+  :focus-visible{scroll-margin-block:80px}
+  .skip{position:fixed;left:16px;top:12px;z-index:100;padding:10px 16px;border-radius:999px;background:var(--ink);color:var(--paper);
+    font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;translate:0 -160%;transition:translate .2s}
+  .skip:focus-visible{translate:0 0}
   .wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
   .mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase}
   .serif{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.01em}
   .red{color:var(--red)}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
   /* ---------- paper primitives ---------- */
   /* torn paper sheet: background lives on ::before so the filter tears edges without warping content */
@@ -147,7 +162,11 @@
   .nav ul a{position:relative}
   .nav ul a::after{content:"";position:absolute;left:0;right:100%;bottom:-3px;height:1px;background:var(--red);transition:right .25s}
   .nav ul a:hover::after{right:0}
-  .link-btn{display:inline-flex;align-items:center;gap:8px;border-bottom:1px solid currentColor;padding-bottom:2px}
+  /* underline redraws from the left on hover */
+  .link-btn{display:inline-flex;align-items:center;gap:8px;padding-bottom:3px;
+    background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;transition:background-size .45s cubic-bezier(.16,1,.3,1)}
+  .link-btn:hover{animation:underline .55s cubic-bezier(.16,1,.3,1)}
+  @keyframes underline{0%{background-size:100% 1px;background-position:100% 100%}45%{background-size:0 1px;background-position:100% 100%}46%{background-position:0 100%}100%{background-size:100% 1px;background-position:0 100%}}
   .btn{
     display:inline-flex;align-items:center;gap:10px;
     padding:13px 22px;border-radius:999px;
@@ -155,6 +174,7 @@
     font-weight:600;font-size:14px;transition:transform .2s,background .2s;
   }
   .btn:hover{transform:translateY(-2px);background:var(--red)}
+  .btn:active{transform:translateY(0) scale(.97);transition-duration:.08s}
   .btn.line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
   .btn.line:hover{background:var(--ink);color:var(--paper)}
   .btn svg{width:16px;height:16px}
@@ -242,7 +262,12 @@
   .work-sub{display:flex;justify-content:space-between;margin:0 0 22px;color:var(--ink-2)}
   .long-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:48px 36px;margin-bottom:90px}
   .short-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:44px 26px}
-  .work a{display:block;position:relative}
+  .work a{display:block;position:relative;transition:translate .5s cubic-bezier(.16,1,.3,1)}
+  .work a:hover{translate:0 -4px}
+  .work a .frame>*{transition:scale .6s cubic-bezier(.16,1,.3,1)}
+  .work a:hover .ghost{scale:1.03}
+  .work a:hover .caption h3{color:var(--red)}
+  .caption h3{transition:color .2s}
   .work a .tape{top:-10px;left:50%;margin-left:-42px;transform:rotate(var(--tr,-3deg))}
   .frame{
     position:relative;overflow:hidden;
@@ -270,18 +295,20 @@
 
   /* ---------- services ---------- */
   .svc-list{list-style:none;border-bottom:1px solid var(--ink);position:relative;z-index:1}
-  .svc-list li{
+  .svc-list li{border-top:1px solid var(--rule)}
+  .svc-list li>a{
     display:grid;grid-template-columns:70px 1fr 1.1fr 40px;gap:24px;align-items:baseline;
-    padding:30px 0;border-top:1px solid var(--rule);transition:padding .3s;
+    padding:30px 0;
   }
+  .svc-list li>a>*{transition:translate .35s cubic-bezier(.16,1,.3,1),color .2s}
   .svc-list li:first-child{border-top:1px solid var(--ink)}
-  .svc-list li:hover{padding-left:14px}
+  .svc-list li:hover>a>*{translate:14px 0}
   .svc-list li:hover h3{color:var(--red)}
   .svc-list .mono{color:var(--ink-3)}
   .svc-list h3{font-size:clamp(26px,3vw,40px);font-weight:700;letter-spacing:-.04em;line-height:1;transition:color .2s}
   .svc-list p{color:var(--ink-2);font-size:16px;max-width:44ch}
-  .svc-list .arr{justify-self:end;font-size:22px;transition:transform .3s}
-  .svc-list li:hover .arr{transform:translateX(6px);color:var(--red)}
+  .svc-list .arr{justify-self:end;font-size:22px}
+  .svc-list li:hover .arr{translate:20px 0;color:var(--red)}
 
   .stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:90px;position:relative;z-index:1}
   .stat{padding:6px 24px 0;border-left:1px solid var(--rule)}
@@ -350,7 +377,10 @@
   .theme-toggle{display:inline-flex;align-items:center;gap:8px;background:none;color:var(--ink);cursor:pointer;
     border:1px solid var(--rule);border-radius:999px;padding:6px 12px 6px 8px;transition:border-color .2s,background-color .2s}
   .theme-toggle:hover{border-color:var(--ink)}
-  .theme-toggle:focus-visible,.menu-toggle:focus-visible,.btn:focus-visible,a:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .theme-toggle:focus-visible,.menu-toggle:focus-visible,.menu-close:focus-visible,.btn:focus-visible,a:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+  .contact a:focus-visible{outline-color:#fff4ec}
+  /* phones: every control is a 44px tap target */
+  @media (pointer:coarse){ .theme-toggle,.menu-toggle,.menu-close{min-height:44px} .socials a,.foot a,.sheet-foot a{display:inline-flex;align-items:center;min-height:44px} }
   .theme-toggle svg{width:16px;height:16px;transition:rotate .5s cubic-bezier(.16,1,.3,1)}
   :root[data-theme="dark"] .theme-toggle svg{rotate:180deg}
   @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .theme-toggle svg{rotate:180deg} }
@@ -409,7 +439,7 @@
   @media (max-width:1000px){
     .hero-note,.p-news{display:none}
     .short-grid{grid-template-columns:repeat(2,1fr)}
-    .svc-list li{grid-template-columns:50px 1fr 30px}
+    .svc-list li>a{grid-template-columns:50px 1fr 30px}
     .svc-list p{grid-column:2/3}
     .svc-list .arr{grid-row:1;grid-column:3}
     .stats{grid-template-columns:repeat(2,1fr);row-gap:40px}
@@ -435,7 +465,7 @@
     .long-grid{grid-template-columns:1fr;margin-bottom:60px}
     .short-grid{gap:30px 14px}
     .caption{flex-direction:column;gap:4px}
-    .svc-list li{grid-template-columns:36px 1fr 24px;gap:14px;padding:24px 0}
+    .svc-list li>a{grid-template-columns:36px 1fr 24px;gap:14px;padding:24px 0}
     .stat{padding:0 14px}
     .stat b{font-size:42px}
     .print .slip{right:-8px;bottom:-40px;width:200px}
@@ -450,7 +480,7 @@
   }
 
   .rimflood{flood-color:var(--rim)}
-  /* "Let's talk." stays black ink on the red sheet in both themes */
+  /* "Let’s talk." stays black ink on the red sheet in both themes */
   .contact .big .serif{color:#161514}
   /* ================= EDIT-ROOM TEXTURES (static, CSS only) ================= */
   /* rubber stamp with worn ink */
@@ -559,7 +589,8 @@
 
 
   @media (prefers-reduced-motion:reduce){
-    .js *,.js *::before{animation:none!important;transition:none!important}
+    .js *,.js *::before,.js *::after{animation:none!important;transition:none!important}
+    .work a:hover,.svc-list li:hover>a>*,.work a:hover .ghost{translate:none;scale:none}
     .js .reveal{opacity:1!important;translate:none!important;rotate:none!important;scale:none!important}
     .js .sec-top.reveal{border-top-color:inherit}
     .js .sec-top.reveal>span{opacity:1}
@@ -569,6 +600,7 @@
 </style>
 </head>
 <body>
+<a class="skip" href="#work">Skip to work</a>
 
 <!-- ===== SVG filters ===== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -654,7 +686,7 @@
 <div class="progress" aria-hidden="true"></div>
 <header class="nav">
   <div class="wrap">
-    <a href="#" class="brand"><i></i>Sean Aragon</a>
+    <a href="#" class="brand" translate="no"><i></i>Sean Aragon</a>
     <ul class="mono">
       <li><a href="#top">Home</a></li>
       <li><a href="#work">Work</a></li>
@@ -668,16 +700,16 @@
         <span class="tt-label">Dark</span>
       </button>
       <a href="#contact" class="mono link-btn hire">Hire me ↗</a>
-    <button class="menu-toggle mono" aria-expanded="false" aria-controls="menu"><span>Menu</span><i></i></button>
+    <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="menu"><span>Menu</span><i></i></button>
     </div>
   </div>
 </header>
 
 <!-- mobile menu: a torn sheet that drops over the page -->
-<div class="menu" id="menu" aria-hidden="true">
+<div class="menu" id="menu" aria-hidden="true" inert>
   <div class="menu-sheet torn">
-    <div class="bleed big" style="right:-6%;bottom:6%;font-size:150px">MENU</div>
-    <div class="menu-top mono"><span>Index</span><button class="menu-close mono">Close ✕</button></div>
+    <div aria-hidden="true" class="bleed big" style="right:-6%;bottom:6%;font-size:150px">MENU</div>
+    <div class="menu-top mono"><span>Index</span><button class="menu-close mono" type="button" aria-label="Close menu">Close ✕</button></div>
     <ol>
       <li><a href="#top"><span class="mono">01</span>Home</a></li>
       <li><a href="#work"><span class="mono">02</span>Work</a></li>
@@ -690,6 +722,7 @@
   </div>
 </div>
 
+<main id="main">
 <!-- ================= HERO ================= -->
 <section class="hero" id="top">
   <!-- collage layer -->
@@ -702,7 +735,7 @@
       <div class="rule"></div>
       <div class="hd">THE<br>EDIT</div>
       <div class="rule" style="height:1px"></div>
-      <div class="bleed txt" style="--br:0deg">every cut is a choice.
+      <div aria-hidden="true" class="bleed txt" style="--br:0deg">every cut is a choice.
 the best edits are the
 ones you never notice —
 pacing, rhythm, silence,
@@ -716,15 +749,15 @@ little more.</div>
     <div class="piece torn p-strip"></div>
 
     <!-- bleed-through print from the back of the page -->
-    <div class="bleed big" style="left:2%;top:47%;font-size:150px;--br:-2deg">REEL 01</div>
-    <div class="bleed txt" style="left:30%;top:56%;--br:1deg">TIMECODE      CLIP            DUR
+    <div aria-hidden="true" class="bleed big" style="left:2%;top:47%;font-size:150px;--br:-2deg">REEL 01</div>
+    <div aria-hidden="true" class="bleed txt" style="left:30%;top:56%;--br:1deg">TIMECODE      CLIP            DUR
 00:00:00:00   hook_v3.mov     02:14
 00:00:02:14   broll_city.mp4  04:02
 00:00:06:16   talk_a_cam.mov  11:20
 00:00:18:06   sfx_whoosh.wav  00:12
 00:00:18:18   outro_card.png  03:00
 —— render: final_FINAL_v7.mp4 ——</div>
-    <div class="bleed txt red-ink" style="right:4%;top:56%;--br:-2deg">CUT ✂ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
+    <div aria-hidden="true" class="bleed txt red-ink" style="right:4%;top:56%;--br:-2deg">CUT ✂ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
 16:9 / 9:16 / 1:1
 24 fps · rec.709 · −14 LUFS</div>
 
@@ -732,36 +765,36 @@ little more.</div>
     <svg class="doodle d-lines" style="left:calc(50% + 170px);top:calc(var(--name-size)*.86 + 70px);width:90px;height:90px" viewBox="0 0 90 90"><g stroke-width="5"><path d="M30 8 L18 34"/><path d="M62 18 L38 44"/><path d="M80 48 L50 56"/></g></svg>
     <svg class="doodle d-arrow" style="left:calc(50% - 300px);top:calc(var(--name-size)*.86 + 150px);width:150px;height:90px" viewBox="0 0 150 90"><g stroke-width="2.2" style="stroke:var(--red)"><path d="M8 20 C50 6 100 20 128 62"/><path d="M110 60 L130 66 L132 46"/></g></svg>
 
-    <svg class="splat" style="left:1%;top:40px;width:130px;height:104px;fill:var(--red);opacity:.9;transform:rotate(20deg)"><use href="#splatter"/></svg>
-    <svg class="splat" style="left:4%;bottom:34%;width:70px;height:56px;fill:var(--ink);opacity:.8;transform:rotate(-30deg)"><use href="#splatter"/></svg>
-    <svg class="stain" style="right:24%;bottom:6%;width:180px;height:180px"><use href="#ring"/></svg>
-    <span class="crop" style="left:24px;top:84px"><i></i></span>
-    <span class="crop" style="right:24px;top:84px"><i></i></span>
-    <span class="crop" style="left:24px;bottom:24px"><i></i></span>
-    <div class="halftone red-dots hide-sm" style="left:calc(50% + 160px);top:calc(var(--name-size)*.86 + 30px)"></div>
-    <span class="dymo black hide-sm" style="left:calc(50% + 210px);top:calc(var(--name-size)*.86 + 250px);rotate:-5deg">Editor · 2026</span>
-    <span class="stamp ink hide-sm" style="left:24%;top:calc(var(--name-size)*.86 + 175px);rotate:-8deg">Rough cut</span>
+    <svg aria-hidden="true" class="splat" style="left:1%;top:40px;width:130px;height:104px;fill:var(--red);opacity:.9;transform:rotate(20deg)"><use href="#splatter"/></svg>
+    <svg aria-hidden="true" class="splat" style="left:4%;bottom:34%;width:70px;height:56px;fill:var(--ink);opacity:.8;transform:rotate(-30deg)"><use href="#splatter"/></svg>
+    <svg aria-hidden="true" class="stain" style="right:24%;bottom:6%;width:180px;height:180px"><use href="#ring"/></svg>
+    <span aria-hidden="true" class="crop" style="left:24px;top:84px"><i></i></span>
+    <span aria-hidden="true" class="crop" style="right:24px;top:84px"><i></i></span>
+    <span aria-hidden="true" class="crop" style="left:24px;bottom:24px"><i></i></span>
+    <div aria-hidden="true" class="halftone red-dots hide-sm" style="left:calc(50% + 160px);top:calc(var(--name-size)*.86 + 30px)"></div>
+    <span aria-hidden="true" class="dymo black hide-sm" style="left:calc(50% + 210px);top:calc(var(--name-size)*.86 + 250px);rotate:-5deg">Editor · 2026</span>
+    <span aria-hidden="true" class="stamp ink hide-sm" style="left:24%;top:calc(var(--name-size)*.86 + 175px);rotate:-8deg">Rough cut</span>
   </div>
 
-  <h2 class="bigname ink" aria-label="Sean Aragon"><span>Sean</span> <span class="ar">Aragon</span></h2>
+  <div class="bigname ink" aria-hidden="true" translate="no"><span>Sean</span> <span class="ar">Aragon</span></div>
 
   <div class="hero-meta mono">
     <span>(01) Portfolio</span>
     <span>Est. 20XX</span>
   </div>
 
-  <span class="hand-note" style="left:calc(50% - 330px);top:calc(var(--name-size)*.86 + 120px);transform:rotate(-8deg)">that's me</span>
+  <span aria-hidden="true" class="hand-note" style="left:calc(50% - 330px);top:calc(var(--name-size)*.86 + 120px);transform:rotate(-8deg)">that’s me</span>
 
   <figure class="hero-photo">
-    <div class="cut"><img src="assets/me.webp" alt="Sean Aragon"></div>
-    <span class="tape"></span>
+    <div class="cut"><img src="assets/me.webp" alt="Sean Aragon" width="720" height="918" fetchpriority="high"></div>
+    <span class="tape" aria-hidden="true"></span>
   </figure>
 
   <div class="piece vellum p-vellum" aria-hidden="true"></div>
 
   <div class="hero-copy">
     <span class="mono">Video editor — available for freelance</span>
-    <h1>Raw footage in.<br><span class="circled serif">Stories
+    <h1><span class="sr">Sean Aragon, video editor. </span>Raw footage in.<br><span class="circled serif">Stories
       <svg viewBox="0 0 120 60" preserveAspectRatio="none" aria-hidden="true"><path d="M70 6 C30 2 4 14 6 32 C8 52 60 58 96 50 C122 44 120 18 96 10 C80 5 56 5 40 9"/></svg></span> out.</h1>
     <p>I edit reels, YouTube videos and brand content that people actually watch to the end.</p>
     <div class="actions">
@@ -772,7 +805,7 @@ little more.</div>
   </div>
 
   <aside class="hero-note vellum">
-    <span class="tape"></span>
+    <span class="tape" aria-hidden="true"></span>
     <div class="mono"><span><i class="dot"></i>Open</span><span>2026</span></div>
     <p>Currently taking on new edits — short‑form, long‑form and everything in between.</p>
   </aside>
@@ -780,17 +813,17 @@ little more.</div>
 
 <!-- ================= WORK ================= -->
 <section id="work" class="work sheet-bg" style="--bg:var(--sheet)">
-  <span class="stamp" style="right:9%;top:240px;rotate:7deg">Final cut ✓</span>
-  <div class="halftone hide-sm" style="left:-80px;top:38%"></div>
-  <div class="bleed big" style="right:-2%;top:120px;font-size:220px">WORK</div>
-  <div class="bleed txt red-ink" style="left:3%;top:330px;--br:-3deg">[ IN ]  00:00:04:12
+  <span aria-hidden="true" class="stamp" style="right:9%;top:240px;rotate:7deg">Final cut ✓</span>
+  <div aria-hidden="true" class="halftone hide-sm" style="left:-80px;top:38%"></div>
+  <div aria-hidden="true" class="bleed big" style="right:-2%;top:120px;font-size:220px">WORK</div>
+  <div aria-hidden="true" class="bleed txt red-ink" style="left:3%;top:330px;--br:-3deg">[ IN ]  00:00:04:12
 [ OUT ] 00:00:09:01</div>
-  <div class="bleed txt" style="right:5%;top:46%;--br:2deg">SCENE 04 / TAKE 02
+  <div aria-hidden="true" class="bleed txt" style="right:5%;top:46%;--br:2deg">SCENE 04 / TAKE 02
 CAM A — 35MM — F2.8
 SHUTTER 1/50 · ISO 800</div>
-  <div class="bleed tiny" style="left:4%;bottom:90px;--br:-1deg">▁▂▃▅▇▅▃▂▁▂▃▅▃▂▁ ▁▂▅▇▇▅▂▁ ▁▂▃▂▁</div>
-  <div class="bleed big red-ink" style="left:-2%;bottom:40px;font-size:180px;--br:2deg">9:16</div>
-  <svg class="stain" style="left:38%;top:70px;width:200px;height:200px;transform:rotate(40deg)"><use href="#ring"/></svg>
+  <div aria-hidden="true" class="bleed tiny" style="left:4%;bottom:90px;--br:-1deg">▁▂▃▅▇▅▃▂▁▂▃▅▃▂▁ ▁▂▅▇▇▅▂▁ ▁▂▃▂▁</div>
+  <div aria-hidden="true" class="bleed big red-ink" style="left:-2%;bottom:40px;font-size:180px;--br:2deg">9:16</div>
+  <svg aria-hidden="true" class="stain" style="left:38%;top:70px;width:200px;height:200px;transform:rotate(40deg)"><use href="#ring"/></svg>
   <div class="wrap">
     <div class="sec-top mono"><span>(02) Selected work</span><span>2024 — 2026</span></div>
     <h2 class="sec-title ink">Selected <span class="serif">work</span></h2>
@@ -798,12 +831,12 @@ SHUTTER 1/50 · ISO 800</div>
     <div class="work-sub mono"><span>Long‑form</span><span>YouTube / Documentary</span></div>
     <div class="long-grid">
       <a href="#" style="transform:rotate(-.6deg)">
-        <span class="tape" style="--tr:-4deg"></span>
+        <span class="tape" style="--tr:-4deg" aria-hidden="true"></span>
         <div class="frame wide torn"><span class="idx mono">01</span><span class="ghost">LONG</span><span class="play"></span><span class="dur mono">12:48</span></div>
         <div class="caption"><h3>Project title goes here</h3><span class="mono">Client — 2026</span></div>
       </a>
       <a href="#" style="transform:rotate(.5deg)">
-        <span class="tape" style="--tr:3deg"></span>
+        <span class="tape" style="--tr:3deg" aria-hidden="true"></span>
         <div class="frame wide torn"><span class="idx mono">02</span><span class="ghost">FORM</span><span class="play"></span><span class="dur mono">08:21</span></div>
         <div class="caption"><h3>Project title goes here</h3><span class="mono">Client — 2026</span></div>
       </a>
@@ -811,16 +844,16 @@ SHUTTER 1/50 · ISO 800</div>
 
     <div class="work-sub mono"><span>Short‑form</span><span>Reels / TikTok / Shorts</span></div>
     <div class="short-grid">
-      <a href="#" style="transform:rotate(-1deg)"><span class="tape" style="--tr:2deg;width:64px;margin-left:-32px"></span>
+      <a href="#" style="transform:rotate(-1deg)"><span class="tape" style="--tr:2deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
         <div class="frame tall torn"><span class="idx mono">03</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:45</span></div>
         <div class="caption"><h3>Reel title</h3><span class="mono">1.2M views</span></div></a>
-      <a href="#" style="transform:rotate(.8deg)"><span class="tape" style="--tr:-3deg;width:64px;margin-left:-32px"></span>
+      <a href="#" style="transform:rotate(.8deg)"><span class="tape" style="--tr:-3deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
         <div class="frame tall torn"><span class="idx mono">04</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:30</span></div>
         <div class="caption"><h3>Reel title</h3><span class="mono">480K views</span></div></a>
-      <a href="#" style="transform:rotate(-.4deg)"><span class="tape" style="--tr:4deg;width:64px;margin-left:-32px"></span>
+      <a href="#" style="transform:rotate(-.4deg)"><span class="tape" style="--tr:4deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
         <div class="frame tall torn"><span class="idx mono">05</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:58</span></div>
         <div class="caption"><h3>Reel title</h3><span class="mono">900K views</span></div></a>
-      <a href="#" style="transform:rotate(1.1deg)"><span class="tape" style="--tr:-2deg;width:64px;margin-left:-32px"></span>
+      <a href="#" style="transform:rotate(1.1deg)"><span class="tape" style="--tr:-2deg;width:64px;margin-left:-32px" aria-hidden="true"></span>
         <div class="frame tall torn"><span class="idx mono">06</span><span class="ghost">9:16</span><span class="play"></span><span class="dur mono">0:22</span></div>
         <div class="caption"><h3>Reel title</h3><span class="mono">310K views</span></div></a>
     </div>
@@ -829,26 +862,26 @@ SHUTTER 1/50 · ISO 800</div>
 
 <!-- ================= SERVICES ================= -->
 <section id="services">
-  <div class="proofstrip torn" style="left:-1%;top:-34px;width:min(560px,70%);rotate:-2.2deg"><span class="tape"></span><div class="frames"></div><div class="nums"><span>▸14</span><span>▸14A</span><span>▸15</span><span>▸15A</span><span>▸16</span><span>▸16A</span><span>▸17</span></div><span class="label">REEL 02 · TAKE 04</span></div>
-  <div class="crease" style="top:46%;rotate:-3deg"></div>
-  <div class="halftone red-dots hide-sm" style="right:-60px;bottom:6%"></div>
-  <div class="bleed big" style="left:-1%;top:90px;font-size:200px">SERVICES</div>
-  <div class="bleed txt red-ink" style="right:4%;top:110px;--br:2deg">✂ CUT HERE ─ ─ ─ ─ ─ ─ ─ ─</div>
-  <div class="bleed txt" style="left:2%;top:58%;--br:-2deg">01  hook ........ 0–3s
+  <div aria-hidden="true" class="proofstrip torn" style="left:-1%;top:-34px;width:min(560px,70%);rotate:-2.2deg"><span class="tape" aria-hidden="true"></span><div class="frames"></div><div class="nums"><span>▸14</span><span>▸14A</span><span>▸15</span><span>▸15A</span><span>▸16</span><span>▸16A</span><span>▸17</span></div><span class="label">REEL 02 · TAKE 04</span></div>
+  <div aria-hidden="true" class="crease" style="top:46%;rotate:-3deg"></div>
+  <div aria-hidden="true" class="halftone red-dots hide-sm" style="right:-60px;bottom:6%"></div>
+  <div aria-hidden="true" class="bleed big" style="left:-1%;top:90px;font-size:200px">SERVICES</div>
+  <div aria-hidden="true" class="bleed txt red-ink" style="right:4%;top:110px;--br:2deg">✂ CUT HERE ─ ─ ─ ─ ─ ─ ─ ─</div>
+  <div aria-hidden="true" class="bleed txt" style="left:2%;top:58%;--br:-2deg">01  hook ........ 0–3s
 02  story ....... 3–45s
 03  payoff ...... 45–55s
 04  cta ......... 55–60s</div>
-  <div class="bleed tiny red-ink" style="right:6%;bottom:70px;--br:-1deg">● REC  00:12:48:20</div>
-  <svg class="splat hide-sm" style="right:8%;top:200px;width:110px;height:90px;fill:var(--red);opacity:.85;transform:rotate(-12deg)"><use href="#splatter"/></svg>
+  <div aria-hidden="true" class="bleed tiny red-ink" style="right:6%;bottom:70px;--br:-1deg">● REC  00:12:48:20</div>
+  <svg aria-hidden="true" class="splat hide-sm" style="right:8%;top:200px;width:110px;height:90px;fill:var(--red);opacity:.85;transform:rotate(-12deg)"><use href="#splatter"/></svg>
   <div class="wrap">
     <div class="sec-top mono"><span>(03) Services</span><span>What I do</span></div>
     <h2 class="sec-title ink">Tighter cuts.<br><span class="serif red">More watch time.</span></h2>
 
     <ul class="svc-list">
-      <li><span class="mono">01</span><h3>Short‑form reels</h3><p>Hooks in the first second, captions, sound and pacing built for Reels, TikTok and Shorts.</p><span class="arr">→</span></li>
-      <li><span class="mono">02</span><h3>YouTube long‑form</h3><p>Story structure, b‑roll, sound design and retention‑focused cuts.</p><span class="arr">→</span></li>
-      <li><span class="mono">03</span><h3>Thumbnails</h3><p>Clean, readable designs made to match every video I edit.</p><span class="arr">→</span></li>
-      <li><span class="mono">04</span><h3>Motion graphics</h3><p>Titles, callouts and lower thirds that keep eyes on screen.</p><span class="arr">→</span></li>
+      <li><a href="#contact"><span class="mono">01</span><h3>Short‑form reels</h3><p>Hooks in the first second, captions, sound and pacing built for Reels, TikTok and Shorts.</p><span class="arr" aria-hidden="true">→</span></a></li>
+      <li><a href="#contact"><span class="mono">02</span><h3>YouTube long‑form</h3><p>Story structure, b‑roll, sound design and retention‑focused cuts.</p><span class="arr" aria-hidden="true">→</span></a></li>
+      <li><a href="#contact"><span class="mono">03</span><h3>Thumbnails</h3><p>Clean, readable designs made to match every video I edit.</p><span class="arr" aria-hidden="true">→</span></a></li>
+      <li><a href="#contact"><span class="mono">04</span><h3>Motion graphics</h3><p>Titles, callouts and lower thirds that keep eyes on screen.</p><span class="arr" aria-hidden="true">→</span></a></li>
     </ul>
 
     <div class="stats">
@@ -862,27 +895,27 @@ SHUTTER 1/50 · ISO 800</div>
 
 <!-- ================= ABOUT ================= -->
 <section id="about" class="sheet-bg" style="--bg:var(--sheet)">
-  <span class="dymo black" style="right:8%;top:120px;rotate:4deg">B-roll</span>
-  <div class="crease hide-sm" style="top:62%;rotate:2.5deg"></div>
-  <div class="bleed big" style="right:-3%;top:60px;font-size:200px;--br:-2deg">ABOUT</div>
-  <div class="bleed txt red-ink" style="right:6%;bottom:80px;--br:3deg">note to self:
+  <span aria-hidden="true" class="dymo black" style="right:8%;top:120px;rotate:4deg">B-roll</span>
+  <div aria-hidden="true" class="crease hide-sm" style="top:62%;rotate:2.5deg"></div>
+  <div aria-hidden="true" class="bleed big" style="right:-3%;top:60px;font-size:200px;--br:-2deg">ABOUT</div>
+  <div aria-hidden="true" class="bleed txt red-ink" style="right:6%;bottom:80px;--br:3deg">note to self:
 less is more.
 then cut a little more.</div>
-  <div class="bleed tiny" style="left:3%;bottom:40px">FIG. 01 · FIG. 02 · FIG. 03 · CONTACT SHEET</div>
+  <div aria-hidden="true" class="bleed tiny" style="left:3%;bottom:40px">FIG. 01 · FIG. 02 · FIG. 03 · CONTACT SHEET</div>
   <div class="wrap">
     <div class="sec-top mono"><span>(04) About</span><span>The person behind the timeline</span></div>
     <div class="about-grid">
       <div class="print">
         <div class="red-scrap torn"></div>
-        <span class="staple" style="left:46%;top:4px;transform:rotate(-4deg)"></span>
-        <span class="tape"></span>
-        <div class="photo"><div><img src="assets/me-src.webp" alt="Sean Aragon"></div><span class="mono">Fig. 01 — Sean</span></div>
-        <span class="tape b"></span>
+        <span aria-hidden="true" class="staple" style="left:46%;top:4px;transform:rotate(-4deg)"></span>
+        <span class="tape" aria-hidden="true"></span>
+        <div class="photo"><div><img src="assets/me-src.webp" alt="Portrait of Sean Aragon" width="1440" height="1920" loading="lazy" decoding="async"></div><span class="mono">Fig. 01 — Sean</span></div>
+        <span class="tape b" aria-hidden="true"></span>
         <div class="slip vellum"><p class="serif">“Every frame earns its place.”</p></div>
       </div>
       <div class="about-copy">
-        <h2 class="ink">Hi, I'm Sean.<br><span class="serif" style="font-weight:400">I edit for <span class="red">attention.</span></span></h2>
-        <p class="lede">Short intro — who you are, where you're based, and the kind of creators and brands you love working with.</p>
+        <h2 class="ink">Hi, I’m Sean.<br><span class="serif" style="font-weight:400">I edit for <span class="red">attention.</span></span></h2>
+        <p class="lede">Short intro — who you are, where you’re based, and the kind of creators and brands you love working with.</p>
         <p>Second paragraph — how you work with clients, your turnaround, your editing philosophy or a fun fact about you.</p>
         <div class="tools">
           <span class="mono">Toolkit</span>
@@ -895,22 +928,22 @@ then cut a little more.</div>
 
 <!-- ================= RESUME ================= -->
 <section id="resume">
-  <div class="proofstrip torn" style="right:-1%;top:-30px;width:min(520px,66%);rotate:1.8deg"><span class="tape"></span><div class="frames"></div><div class="nums"><span>▸21</span><span>▸21A</span><span>▸22</span><span>▸22A</span><span>▸23</span><span>▸23A</span><span>▸24</span></div><span class="label">REEL 03 · SELECTS</span></div>
-  <div class="halftone hide-sm" style="left:-60px;bottom:4%"></div>
-  <div class="bleed txt" style="left:3%;bottom:60px;--br:-2deg">REV. 2026 — PAGE 01 OF 01
+  <div aria-hidden="true" class="proofstrip torn" style="right:-1%;top:-30px;width:min(520px,66%);rotate:1.8deg"><span class="tape" aria-hidden="true"></span><div class="frames"></div><div class="nums"><span>▸21</span><span>▸21A</span><span>▸22</span><span>▸22A</span><span>▸23</span><span>▸23A</span><span>▸24</span></div><span class="label">REEL 03 · SELECTS</span></div>
+  <div aria-hidden="true" class="halftone hide-sm" style="left:-60px;bottom:4%"></div>
+  <div aria-hidden="true" class="bleed txt" style="left:3%;bottom:60px;--br:-2deg">REV. 2026 — PAGE 01 OF 01
 PRINTED ON 80GSM PAPER
 DO NOT FOLD</div>
-  <div class="bleed big red-ink" style="right:-2%;bottom:20px;font-size:170px;--br:3deg">RÉSUMÉ</div>
-  <div class="bleed tiny red-ink" style="right:6%;top:100px">✂ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─</div>
+  <div aria-hidden="true" class="bleed big red-ink" style="right:-2%;bottom:20px;font-size:170px;--br:3deg">RÉSUMÉ</div>
+  <div aria-hidden="true" class="bleed tiny red-ink" style="right:6%;top:100px">✂ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─</div>
   <div class="wrap">
     <div class="sec-top mono"><span>(05) Resume</span><span>The short version</span></div>
     <div class="resume-stage">
       <div class="resume-ghost ink" aria-hidden="true">CV</div>
       <div class="sheet vellum">
         <svg class="clip" style="left:34px;top:-26px" viewBox="0 0 26 70" aria-hidden="true"><path d="M8 50V12a5 5 0 0 1 10 0v42a8 8 0 0 1-16 0V16" fill="none" stroke="#8d8a84" stroke-width="2.4" stroke-linecap="round"/><path d="M8 50V12a5 5 0 0 1 10 0v42a8 8 0 0 1-16 0V16" fill="none" stroke="#d9d6d0" stroke-width="1" stroke-linecap="round" transform="translate(-.6 -.6)"/></svg>
-        <span class="stamp" style="right:40px;bottom:70px;rotate:-9deg">Approved</span>
-        <span class="tape"></span><span class="tape r"></span>
-        <svg class="stain" style="right:-50px;bottom:-60px;width:220px;height:220px;transform:rotate(-20deg)"><use href="#ring"/></svg>
+        <span aria-hidden="true" class="stamp" style="right:40px;bottom:70px;rotate:-9deg">Approved</span>
+        <span class="tape" aria-hidden="true"></span><span class="tape r" aria-hidden="true"></span>
+        <svg aria-hidden="true" class="stain" style="right:-50px;bottom:-60px;width:220px;height:220px;transform:rotate(-20deg)"><use href="#ring"/></svg>
         <div class="sheet-head mono"><span>Experience</span><span>Sean Aragon — Video Editor</span></div>
         <div class="job"><span class="mono">2025 — Now</span><div><h3>Job title</h3><p>One or two lines on what you did and the results.</p></div><span class="co">Company</span></div>
         <div class="job"><span class="mono">2023 — 2025</span><div><h3>Job title</h3><p>One or two lines on what you did and the results.</p></div><span class="co">Company</span></div>
@@ -922,20 +955,22 @@ DO NOT FOLD</div>
   </div>
 </section>
 
+</main>
+
 <!-- ================= CONTACT ================= -->
 <footer id="contact" class="contact torn">
-  <div class="halftone light" style="left:-80px;bottom:10%"></div>
-  <div class="crease" style="top:38%;rotate:-2deg;opacity:.6"></div>
+  <div aria-hidden="true" class="halftone light" style="left:-80px;bottom:10%"></div>
+  <div aria-hidden="true" class="crease" style="top:38%;rotate:-2deg;opacity:.6"></div>
   
-  <div class="bleed big" style="right:2%;top:110px;font-size:240px">HELLO</div>
-  <div class="bleed txt" style="left:3%;bottom:150px;--br:-2deg;color:var(--ink);opacity:.14">SEND RAW FOOTAGE TO:
+  <div aria-hidden="true" class="bleed big" style="right:2%;top:110px;font-size:240px">HELLO</div>
+  <div aria-hidden="true" class="bleed txt" style="left:3%;bottom:150px;--br:-2deg;color:var(--ink);opacity:.14">SEND RAW FOOTAGE TO:
 drive / dropbox / wetransfer
 turnaround 24–72h</div>
-  <div class="bleed tiny" style="right:4%;bottom:120px;color:var(--ink);opacity:.16">EXPORT ▸ H.264 ▸ 1080P ▸ −14 LUFS</div>
-  <svg class="splat" style="right:30%;top:220px;width:160px;height:130px;fill:var(--ink);opacity:.85;transform:rotate(160deg)"><use href="#splatter"/></svg>
+  <div aria-hidden="true" class="bleed tiny" style="right:4%;bottom:120px;color:var(--ink);opacity:.16">EXPORT ▸ H.264 ▸ 1080P ▸ −14 LUFS</div>
+  <svg aria-hidden="true" class="splat" style="right:30%;top:220px;width:160px;height:130px;fill:var(--ink);opacity:.85;transform:rotate(160deg)"><use href="#splatter"/></svg>
   <div class="wrap">
     <div class="sec-top mono"><span>(06) Contact</span><span>Usually replies within a day</span></div>
-    <h2 class="big ink">Got footage?<br><span class="serif">Let's talk.</span></h2>
+    <h2 class="big ink">Got footage?<br><span class="serif">Let’s talk.</span></h2>
     <div class="contact-row">
       <a href="mailto:hello@yourname.com" class="mail">hello@yourname.com</a>
       <ul class="socials mono">
@@ -1031,7 +1066,8 @@ turnaround 24–72h</div>
     var menu=document.getElementById("menu"),btn=document.querySelector(".menu-toggle");
     function set(open){
       menu.classList.toggle("open",open);document.body.classList.toggle("menu-open",open);
-      btn.setAttribute("aria-expanded",open);menu.setAttribute("aria-hidden",!open);
+      btn.setAttribute("aria-expanded",open);menu.setAttribute("aria-hidden",!open);menu.inert=!open;
+      if(open){var f=menu.querySelector(".menu-close");setTimeout(function(){f.focus()},50)}else if(menu.contains(document.activeElement))btn.focus();
     }
     btn.addEventListener("click",function(){set(true)});
     menu.addEventListener("click",function(e){
@@ -1042,7 +1078,7 @@ turnaround 24–72h</div>
         setTimeout(function(){ window.__goto?window.__goto(t,a.getAttribute("href")):(t&&t.scrollIntoView({behavior:"smooth"})); },10);
       } else if(e.target===menu||e.target.closest(".menu-close")) set(false);
     });
-    document.addEventListener("keydown",function(e){ if(e.key==="Escape") set(false); });
+    document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&menu.classList.contains("open")) set(false); });
   })();
 </script>
 </body>
