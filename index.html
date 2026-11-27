@@ -226,6 +226,7 @@
     position:relative;width:100%;height:100%;
     -webkit-mask:var(--torn) 0 0/100% 100% no-repeat;mask:var(--torn) 0 0/100% 100% no-repeat;
   }
+  .hero-photo picture{display:contents}
   .hero-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.8) contrast(1.08) brightness(1.04) sepia(.06)}
   .hero-photo .cut::after{
     content:"";position:absolute;inset:0;background:var(--grain);mix-blend-mode:multiply;
@@ -706,7 +707,11 @@
     section.sheet-bg::before{filter:none;clip-path:polygon(0 1%,5% 0,11% 1.6%,18% .2%,26% 1.4%,34% 0,42% 1.2%,51% .3%,59% 1.5%,67% 0,75% 1.1%,83% .4%,91% 1.4%,100% 0,100% 99%,93% 100%,85% 98.6%,77% 100%,69% 98.8%,60% 100%,52% 98.4%,44% 100%,36% 98.8%,28% 100%,20% 98.6%,12% 100%,5% 98.9%,0 100%)}
     .ink{filter:none}
     .hero-photo{filter:none}
-    .hero-photo::before{content:"";position:absolute;inset:-9px;z-index:-1;background:#fcfaf4;-webkit-mask:var(--torn) 0 0/100% 100% no-repeat;mask:var(--torn) 0 0/100% 100% no-repeat}
+    /* hero photo: the sticker outline (rough white rim, tape, shadow) is pre-rendered from the desktop #sticker
+       filter into assets/me-sticker.webp, which covers the filter region (-12% / -8%, 124% x 118% of the photo box) */
+    .hero-photo .cut{-webkit-mask:none;mask:none}
+    .hero-photo .cut img{position:absolute;left:-12%;top:-8%;width:124%;height:118%;max-width:none;object-fit:fill;filter:none}
+    .hero-photo .cut::after,.hero-photo .tape{display:none}
     .sheet{-webkit-backdrop-filter:none;backdrop-filter:none;background-color:var(--vellum-solid)!important}
     .frame.cine.media .poster{filter:none}
     .frame.cine.media .shade{background:linear-gradient(90deg,rgba(8,7,6,.62),rgba(8,7,6,.15) 55%,transparent),linear-gradient(0deg,rgba(8,7,6,.55),transparent 50%),linear-gradient(180deg,rgba(8,7,6,.45),transparent 22%),rgba(8,7,6,.22)}
@@ -1005,7 +1010,7 @@ little more.</div>
   <span aria-hidden="true" class="hand-note" style="left:calc(50% - 330px);top:calc(var(--name-size)*.86 + 120px);transform:rotate(-8deg)">that’s me</span>
 
   <figure class="hero-photo">
-    <div class="cut"><img src="assets/me.webp" alt="Sean Aragon" width="720" height="918" fetchpriority="high"></div>
+    <div class="cut"><picture><source media="(max-width:760px)" srcset="assets/me-sticker.webp"><img src="assets/me.webp" alt="Sean Aragon" width="720" height="918" fetchpriority="high"></picture></div>
     <span class="tape" aria-hidden="true"></span>
   </figure>
 
