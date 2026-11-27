@@ -220,8 +220,9 @@
     position:absolute;z-index:3;bottom:-10px;left:50%;
     height:min(76vh,700px);aspect-ratio:720/918;
     transform:translateX(-38%) rotate(-1.5deg);
-    filter:url(#sticker);
   }
+  /* the sticker outline wraps the photo only; the tape sits on top, outside the outline */
+  .hero-photo .stick{position:relative;width:100%;height:100%;filter:url(#sticker)}
   .hero-photo .cut{
     position:relative;width:100%;height:100%;
     -webkit-mask:var(--torn) 0 0/100% 100% no-repeat;mask:var(--torn) 0 0/100% 100% no-repeat;
@@ -706,12 +707,13 @@
     .torn::before{filter:none;clip-path:polygon(0 2%,4% 0,9% 2.5%,15% .5%,22% 2%,30% 0,37% 2.2%,44% .4%,52% 2%,60% 0,67% 2.4%,75% .6%,82% 2%,90% 0,96% 1.8%,100% 0,100% 97%,96% 100%,89% 97.6%,82% 99.6%,74% 97%,66% 100%,58% 97.8%,50% 99.4%,42% 97%,34% 100%,26% 97.6%,18% 99.6%,10% 97.2%,4% 100%,0 97.8%)}
     section.sheet-bg::before{filter:none;clip-path:polygon(0 1%,5% 0,11% 1.6%,18% .2%,26% 1.4%,34% 0,42% 1.2%,51% .3%,59% 1.5%,67% 0,75% 1.1%,83% .4%,91% 1.4%,100% 0,100% 99%,93% 100%,85% 98.6%,77% 100%,69% 98.8%,60% 100%,52% 98.4%,44% 100%,36% 98.8%,28% 100%,20% 98.6%,12% 100%,5% 98.9%,0 100%)}
     .ink{filter:none}
-    .hero-photo{filter:none}
-    /* hero photo: the sticker outline (rough white rim, tape, shadow) is pre-rendered from the desktop #sticker
-       filter into assets/me-sticker.webp, which covers the filter region (-12% / -8%, 124% x 118% of the photo box) */
+    .hero-photo .stick{filter:none}
+    /* hero photo: the sticker outline (rough white rim + shadow, around the photo only) is pre-rendered from the
+       desktop #sticker filter into assets/me-sticker.webp, which covers the filter region (-12% / -8%, 124% x 118%
+       of the photo box). The tape stays a live element on top, outside the outline. */
     .hero-photo .cut{-webkit-mask:none;mask:none}
     .hero-photo .cut img{position:absolute;left:-12%;top:-8%;width:124%;height:118%;max-width:none;object-fit:fill;filter:none}
-    .hero-photo .cut::after,.hero-photo .tape{display:none}
+    .hero-photo .cut::after{display:none}
     .sheet{-webkit-backdrop-filter:none;backdrop-filter:none;background-color:var(--vellum-solid)!important}
     .frame.cine.media .poster{filter:none}
     .frame.cine.media .shade{background:linear-gradient(90deg,rgba(8,7,6,.62),rgba(8,7,6,.15) 55%,transparent),linear-gradient(0deg,rgba(8,7,6,.55),transparent 50%),linear-gradient(180deg,rgba(8,7,6,.45),transparent 22%),rgba(8,7,6,.22)}
@@ -793,9 +795,9 @@
     .hero-photo .cut::after,.p-red::after{mix-blend-mode:normal}
     .print .photo div::after{display:none}
     .bleed,.bleed.big,.contact .bleed.big,.dymo{filter:none}
-    /* hero scraps (red sheet, grey and black pieces): plain cut edges with a soft paper shadow.
-       Only the photo of Sean keeps a torn edge (his call, 2026-11-27). */
-    .collage .torn::before{clip-path:none;box-shadow:1px 5px 8px -3px rgba(42,30,16,.3)}
+    /* hero scraps (red sheet, grey and black pieces) keep the original torn paper edge: the live #paper filter
+       on three small pieces that do not move after the intro (the zigzag clip-path looked wrong next to the photo) */
+    .collage .torn::before{clip-path:none;filter:url(#paper)}
   }
   @media (max-width:760px) and (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){--grain:-webkit-image-set(url("assets/tex/grain-dark-2x.webp") 2x)}
@@ -1013,7 +1015,7 @@ little more.</div>
   <span aria-hidden="true" class="hand-note" style="left:calc(50% - 330px);top:calc(var(--name-size)*.86 + 120px);transform:rotate(-8deg)">that’s me</span>
 
   <figure class="hero-photo">
-    <div class="cut"><picture><source media="(max-width:760px)" srcset="assets/me-sticker.webp"><img src="assets/me.webp" alt="Sean Aragon" width="720" height="918" fetchpriority="high"></picture></div>
+    <div class="stick"><div class="cut"><picture><source media="(max-width:760px)" srcset="assets/me-sticker.webp"><img src="assets/me.webp" alt="Sean Aragon" width="720" height="918" fetchpriority="high"></picture></div></div>
     <span class="tape" aria-hidden="true"></span>
   </figure>
 
