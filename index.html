@@ -793,6 +793,9 @@
     .hero-photo .cut::after,.p-red::after{mix-blend-mode:normal}
     .print .photo div::after{display:none}
     .bleed,.bleed.big,.contact .bleed.big,.dymo{filter:none}
+    /* hero scraps (red sheet, grey and black pieces): plain cut edges with a soft paper shadow.
+       Only the photo of Sean keeps a torn edge (his call, 2026-11-27). */
+    .collage .torn::before{clip-path:none;box-shadow:1px 5px 8px -3px rgba(42,30,16,.3)}
   }
   @media (max-width:760px) and (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){--grain:-webkit-image-set(url("assets/tex/grain-dark-2x.webp") 2x)}
